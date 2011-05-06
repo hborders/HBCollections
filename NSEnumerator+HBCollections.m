@@ -50,7 +50,7 @@
 	NSArray *allObjects = [self.mapeeEnumerator allObjects];
 	NSMutableArray *mappedObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
 	for (id obj in allObjects) {
-		[mappedObjects addObject:_block(obj)];
+		[mappedObjects addObject:self.block(obj)];
 	}
 	return mappedObjects;
 }
@@ -58,7 +58,7 @@
 - (id) nextObject {
 	id nextObject = [self.mapeeEnumerator nextObject];
 	if (nextObject) {
-		return _block(nextObject);
+		return self.block(nextObject);
 	} else {
 		return nil;
 	}
@@ -108,10 +108,11 @@
 			self.mapeeItemsPtr = state->itemsPtr;
 			self.mapeeItemsIndex = count;
 			self.mapeeItemsCount = count;
-			for (NSUInteger i = 0; i < count; i++) {
-				stackbuf[i] = self.block(state->itemsPtr[i]);
-			}
 			state->itemsPtr = stackbuf;
+			
+			for (NSUInteger i = 0; i < count; i++) {
+				stackbuf[i] = self.block(self.mapeeItemsPtr[i]);
+			}
 			
 			return count;
 		}
@@ -120,7 +121,146 @@
 
 @end
 
+@interface HBFilterEnumerator : NSEnumerator
 
+@end
+
+@interface HBFilterEnumerator()
+
+@property (nonatomic, retain) NSEnumerator *filtereeEnumerator;
+@property (nonatomic, copy) BOOL (^block)(id obj, BOOL *);
+@property (nonatomic) id *filtereeItemsPtr;
+@property (nonatomic) NSUInteger filtereeItemsIndex;
+@property (nonatomic) NSUInteger filtereeItemsCount;
+
+@end
+
+
+@implementation HBFilterEnumerator
+
+@synthesize filtereeEnumerator = _filtereeEnumerator;
+@synthesize block = _block;
+@synthesize filtereeItemsPtr = _filtereeItemsPtr;
+@synthesize filtereeItemsIndex = _filtereeItemsIndex;
+@synthesize filtereeItemsCount = _filtereeItemsCount;
+
+#pragma mark -
+#pragma mark init/dealloc
+
+- (id) initWithFiltereeEnumerator: (NSEnumerator *) filtereeEnumerator 
+						 andBlock: (BOOL (^)(id, BOOL *)) block {
+	if (self = [super init]) {
+		self.filtereeEnumerator = filtereeEnumerator;
+		self.block = block;
+	}
+	
+	return self;
+}
+
+- (void) dealloc {
+	self.filtereeEnumerator = nil;
+	self.block = nil;
+	
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSEnumerator
+
+- (NSArray *) allObjects {
+	NSArray *allObjects = [self.filtereeEnumerator allObjects];
+	NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
+	for (id obj in allObjects) {
+		BOOL stop = NO;
+		if (self.block(obj, &stop)) {
+			[filteredObjects addObject:obj];	
+		}
+	}
+	return filteredObjects;
+}
+
+- (id) nextObject {
+	id nextObject;
+	while (nextObject = [self.filtereeEnumerator nextObject]) {
+		BOOL stop = NO;
+		if (self.block(nextObject, &stop)) {
+			return nextObject;	
+		}
+	}
+	return nil;
+}
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
+								  objects:(id *)stackbuf
+									count:(NSUInteger)len {
+	// breaking tests are caused by not continuing to iterate when all of the items in the filtereeEnumerator are filtered.
+	NSUInteger count = 0;
+	NSUInteger filteredItemsCount = 0;
+	do {
+		if (self.filtereeItemsIndex < self.filtereeItemsCount) {
+			count = MIN(len, self.filtereeItemsCount - self.filtereeItemsIndex);
+			state->itemsPtr = stackbuf;
+			for (NSUInteger i = 0; i < count; i++) {
+				BOOL stop = NO;
+				if (self.block(self.filtereeItemsPtr[self.filtereeItemsIndex + i], &stop)) {
+					stackbuf[filteredItemsCount] = self.filtereeItemsPtr[self.filtereeItemsIndex + i];
+					filteredItemsCount++;
+				}
+			}
+			self.filtereeItemsIndex += count;
+		} else {
+			if (self.filtereeItemsPtr) {
+				state->itemsPtr = self.filtereeItemsPtr;
+				self.filtereeItemsPtr = NULL;
+				self.filtereeItemsIndex = 0;
+				self.filtereeItemsCount = 0;
+			}
+			
+			count = [self.filtereeEnumerator countByEnumeratingWithState:state
+																 objects:stackbuf
+																   count:len];
+			if (state->itemsPtr == stackbuf) {
+				for (NSUInteger i = 0; i < count; i++) {
+					BOOL stop = NO;
+					if (self.block(stackbuf[i], &stop)) {
+						stackbuf[filteredItemsCount] = stackbuf[i];
+						filteredItemsCount++;
+					}
+				}
+			} else if (len < count) {
+				self.filtereeItemsPtr = state->itemsPtr;
+				self.filtereeItemsIndex = len;
+				self.filtereeItemsCount = count;
+				state->itemsPtr = stackbuf;
+				
+				for (NSUInteger i=0; i < len; i++) {
+					BOOL stop = NO;
+					if (self.block(self.filtereeItemsPtr[i], &stop)) {
+						stackbuf[filteredItemsCount] = self.filtereeItemsPtr[i];
+						filteredItemsCount++;
+					}
+				}
+			} else {
+				self.filtereeItemsPtr = state->itemsPtr;
+				self.filtereeItemsIndex = count;
+				self.filtereeItemsCount = count;
+				state->itemsPtr = stackbuf;
+				
+				for (NSUInteger i = 0; i < count; i++) {
+					BOOL stop = NO;
+					if (self.block(self.filtereeItemsPtr[i], &stop)) {
+						stackbuf[filteredItemsCount] = self.filtereeItemsPtr[i];
+						filteredItemsCount++;
+					}
+				}
+			}
+		}
+	} while ((filteredItemsCount == 0) && (count != 0));
+	
+	return filteredItemsCount;
+}
+
+@end
 
 @implementation NSEnumerator(HBCollections)
 
@@ -130,7 +270,8 @@
 }
 
 - (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj, BOOL *stop)) block {
-	return nil;
+	return [[[HBFilterEnumerator alloc] initWithFiltereeEnumerator:self
+														  andBlock:block] autorelease];
 }
 
 @end

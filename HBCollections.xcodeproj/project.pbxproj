@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		7B7961A813614A61003DFC43 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
 		7B7961A913614A61003DFC43 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
-		7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsTest.m */; };
+		7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */; };
 		7B7961B013614A93003DFC43 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */; };
 		7B7961C213614CAB003DFC43 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
 		7B7961C313614CAB003DFC43 /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B7B887813652FA70005D773 /* NSEnumerator+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */; };
+		7BC751021372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */; };
+		7BC751051372581700FF83E6 /* HBCollectionsStackBufEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751041372581700FF83E6 /* HBCollectionsStackBufEnumerator.m */; };
+		7BC75108137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */; };
+		7BC7510A1372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */; };
+		7BC7510C1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,10 +42,18 @@
 		7B79617113614A0F003DFC43 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		7B7961A113614A46003DFC43 /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7961A313614A46003DFC43 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
-		7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsTest.m; sourceTree = "<group>"; };
+		7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsMapEnumeratorTest.m; sourceTree = "<group>"; };
 		7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
 		7B7B887613652FA70005D773 /* NSEnumerator+HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEnumerator+HBCollections.h"; sourceTree = "<group>"; };
 		7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEnumerator+HBCollections.m"; sourceTree = "<group>"; };
+		7BC751001372574300FF83E6 /* HBCollectionsTestCaseEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsTestCaseEnumerator.h; sourceTree = "<group>"; };
+		7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsTestCaseEnumerator.m; sourceTree = "<group>"; };
+		7BC751031372581700FF83E6 /* HBCollectionsStackBufEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsStackBufEnumerator.h; sourceTree = "<group>"; };
+		7BC751041372581700FF83E6 /* HBCollectionsStackBufEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsStackBufEnumerator.m; sourceTree = "<group>"; };
+		7BC75106137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsItemsPtrEnumerator.h; sourceTree = "<group>"; };
+		7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsItemsPtrEnumerator.m; sourceTree = "<group>"; };
+		7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsTestCaseEnumeratorTest.m; sourceTree = "<group>"; };
+		7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsFilterEnumeratorTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +72,11 @@
 		08FB7794FE84155DC02AAC07 /* «PROJECTNAME» */ = {
 			isa = PBXGroup;
 			children = (
-				08FB7795FE84155DC02AAC07 /* Source */,
 				08FB779DFE84155DC02AAC07 /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				7B7961A313614A46003DFC43 /* UnitTests-Info.plist */,
+				7BC7517913725C6900FF83E6 /* Resources */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				7BC7517813725C5200FF83E6 /* Test */,
 			);
 			name = "«PROJECTNAME»";
 			sourceTree = "<group>";
@@ -70,9 +84,6 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsTest.m */,
-				7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */,
-				288AFF340F563D390085E73F /* HBCollections_Prefix.pch */,
 				7B7B887613652FA70005D773 /* NSEnumerator+HBCollections.h */,
 				7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */,
 			);
@@ -95,6 +106,32 @@
 				7B7961A113614A46003DFC43 /* UnitTests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7BC7517813725C5200FF83E6 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */,
+				288AFF340F563D390085E73F /* HBCollections_Prefix.pch */,
+				7BC75106137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.h */,
+				7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */,
+				7BC751031372581700FF83E6 /* HBCollectionsStackBufEnumerator.h */,
+				7BC751041372581700FF83E6 /* HBCollectionsStackBufEnumerator.m */,
+				7BC751001372574300FF83E6 /* HBCollectionsTestCaseEnumerator.h */,
+				7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */,
+				7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */,
+				7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */,
+				7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
+		7BC7517913725C6900FF83E6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7B7961A313614A46003DFC43 /* UnitTests-Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,9 +183,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsTest.m in Sources */,
+				7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m in Sources */,
 				7B7961B013614A93003DFC43 /* GHUnitTestMain.m in Sources */,
 				7B7B887813652FA70005D773 /* NSEnumerator+HBCollections.m in Sources */,
+				7BC751021372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m in Sources */,
+				7BC751051372581700FF83E6 /* HBCollectionsStackBufEnumerator.m in Sources */,
+				7BC75108137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m in Sources */,
+				7BC7510A1372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m in Sources */,
+				7BC7510C1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

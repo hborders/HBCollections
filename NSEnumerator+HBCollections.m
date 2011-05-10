@@ -1,6 +1,45 @@
 #import "NSEnumerator+HBCollections.h"
 
-@interface HBMapEnumerator : NSEnumerator
+@interface HBMapEnumerator : NSEnumerator {
+}
+
+- (id) initWithMapeeEnumerator: (NSEnumerator *) mapeeEnumerator 
+					  andBlock: (id (^)(id obj)) block;
+
+@end
+
+@interface HBFilterEnumerator : NSEnumerator {
+}
+
+- (id) initWithFiltereeEnumerator: (NSEnumerator *) filtereeEnumerator 
+						 andBlock: (BOOL (^)(id obj)) block;
+
+@end
+
+@interface HBBreakEnumerator : NSEnumerator {
+}
+
+- (id) initWithBreakeeEnumerator: (NSEnumerator *) breakeeEnumerator
+						andBlock: (BOOL (^)(id)) block;
+
+@end
+
+@implementation NSEnumerator(HBCollections)
+
+- (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block {
+	return [[[HBMapEnumerator alloc] initWithMapeeEnumerator:self
+													andBlock:block] autorelease];
+}
+
+- (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj)) block {
+	return [[[HBFilterEnumerator alloc] initWithFiltereeEnumerator:self
+														  andBlock:block] autorelease];
+}
+
+- (NSEnumerator *) hb_breakEnumeratorUsingBlock:(BOOL (^)(id obj)) block {
+	return [[[HBBreakEnumerator alloc] initWithBreakeeEnumerator:self
+														andBlock:block] autorelease];
+}
 
 @end
 
@@ -121,14 +160,10 @@
 
 @end
 
-@interface HBFilterEnumerator : NSEnumerator
-
-@end
-
 @interface HBFilterEnumerator()
 
 @property (nonatomic, retain) NSEnumerator *filtereeEnumerator;
-@property (nonatomic, copy) BOOL (^block)(id obj, BOOL *);
+@property (nonatomic, copy) BOOL (^block)(id);
 @property (nonatomic) id *filtereeItemsPtr;
 @property (nonatomic) NSUInteger filtereeItemsIndex;
 @property (nonatomic) NSUInteger filtereeItemsCount;
@@ -148,7 +183,7 @@
 #pragma mark init/dealloc
 
 - (id) initWithFiltereeEnumerator: (NSEnumerator *) filtereeEnumerator 
-						 andBlock: (BOOL (^)(id, BOOL *)) block {
+						 andBlock: (BOOL (^)(id obj)) block {
 	if (self = [super init]) {
 		self.filtereeEnumerator = filtereeEnumerator;
 		self.block = block;
@@ -171,8 +206,7 @@
 	NSArray *allObjects = [self.filtereeEnumerator allObjects];
 	NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
 	for (id obj in allObjects) {
-		BOOL stop = NO;
-		if (self.block(obj, &stop)) {
+		if (self.block(obj)) {
 			[filteredObjects addObject:obj];	
 		}
 	}
@@ -182,8 +216,7 @@
 - (id) nextObject {
 	id nextObject;
 	while (nextObject = [self.filtereeEnumerator nextObject]) {
-		BOOL stop = NO;
-		if (self.block(nextObject, &stop)) {
+		if (self.block(nextObject)) {
 			return nextObject;	
 		}
 	}
@@ -201,8 +234,7 @@
 			count = MIN(len, self.filtereeItemsCount - self.filtereeItemsIndex);
 			state->itemsPtr = stackbuf;
 			for (NSUInteger i = 0; i < count; i++) {
-				BOOL stop = NO;
-				if (self.block(self.filtereeItemsPtr[self.filtereeItemsIndex + i], &stop)) {
+				if (self.block(self.filtereeItemsPtr[self.filtereeItemsIndex + i])) {
 					stackbuf[filteredItemsCount] = self.filtereeItemsPtr[self.filtereeItemsIndex + i];
 					filteredItemsCount++;
 				}
@@ -221,8 +253,7 @@
 																   count:len];
 			if (state->itemsPtr == stackbuf) {
 				for (NSUInteger i = 0; i < count; i++) {
-					BOOL stop = NO;
-					if (self.block(stackbuf[i], &stop)) {
+					if (self.block(stackbuf[i])) {
 						stackbuf[filteredItemsCount] = stackbuf[i];
 						filteredItemsCount++;
 					}
@@ -234,8 +265,7 @@
 				state->itemsPtr = stackbuf;
 				
 				for (NSUInteger i=0; i < len; i++) {
-					BOOL stop = NO;
-					if (self.block(self.filtereeItemsPtr[i], &stop)) {
+					if (self.block(self.filtereeItemsPtr[i])) {
 						stackbuf[filteredItemsCount] = self.filtereeItemsPtr[i];
 						filteredItemsCount++;
 					}
@@ -247,8 +277,7 @@
 				state->itemsPtr = stackbuf;
 				
 				for (NSUInteger i = 0; i < count; i++) {
-					BOOL stop = NO;
-					if (self.block(self.filtereeItemsPtr[i], &stop)) {
+					if (self.block(self.filtereeItemsPtr[i])) {
 						stackbuf[filteredItemsCount] = self.filtereeItemsPtr[i];
 						filteredItemsCount++;
 					}
@@ -262,16 +291,78 @@
 
 @end
 
-@implementation NSEnumerator(HBCollections)
+@interface HBBreakEnumerator()
 
-- (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block {
-	return [[[HBMapEnumerator alloc] initWithMapeeEnumerator:self
-													andBlock:block] autorelease];
+@property (nonatomic, retain) NSEnumerator *breakeeEnumerator;
+@property (nonatomic, copy) BOOL (^block)(id);
+
+@end
+
+@implementation HBBreakEnumerator
+
+@synthesize breakeeEnumerator = _breakeeEnumerator;
+@synthesize block = _block;
+
+- (id) initWithBreakeeEnumerator: (NSEnumerator *) breakeeEnumerator
+						andBlock: (BOOL (^)(id)) block {
+	if (self = [super init]) {
+		self.breakeeEnumerator = breakeeEnumerator;
+		self.block = block;
+	}
+	
+	return self;
 }
 
-- (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj, BOOL *stop)) block {
-	return [[[HBFilterEnumerator alloc] initWithFiltereeEnumerator:self
-														  andBlock:block] autorelease];
+- (void) dealloc {
+	self.breakeeEnumerator = nil;
+	self.block = nil;
+	
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark NSEnumerator
+
+- (NSArray *) allObjects {
+	NSArray *allObjects = [self.breakeeEnumerator allObjects];
+	NSMutableArray *breakedObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
+	for (id obj in allObjects) {
+		if (self.block(obj)) {
+			break;
+		} else {
+			[breakedObjects addObject:obj];	
+		}
+	}
+	return breakedObjects;
+}
+
+- (id) nextObject {
+	id nextObject = [self.breakeeEnumerator nextObject];
+	
+	if (self.block(nextObject)) {
+		return nil;
+	} else {
+		return nextObject;
+	}
+}
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
+								  objects:(id *)stackbuf
+									count:(NSUInteger)len {
+	NSUInteger breakeeCount = [self.breakeeEnumerator countByEnumeratingWithState:state
+																		  objects:stackbuf
+																			count:len];
+	NSUInteger count = 0;
+	
+	while (count < breakeeCount) {
+		if (self.block(state->itemsPtr[count])) {
+			break;
+		} else {
+			count++;
+		}
+	}
+	
+	return count;
 }
 
 @end

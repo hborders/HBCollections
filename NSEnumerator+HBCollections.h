@@ -3,6 +3,7 @@
 @interface NSEnumerator(HBCollections)
 
 - (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block;
-- (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj, BOOL *stop)) block;
+- (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
+- (NSEnumerator *) hb_breakEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
 
 @end

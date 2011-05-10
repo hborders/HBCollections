@@ -14,6 +14,7 @@
 		7B7961C213614CAB003DFC43 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
 		7B7961C313614CAB003DFC43 /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B7B887813652FA70005D773 /* NSEnumerator+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */; };
+		7B8F65711378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */; };
 		7BC751021372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */; };
 		7BC751051372581700FF83E6 /* HBCollectionsStackBufEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751041372581700FF83E6 /* HBCollectionsStackBufEnumerator.m */; };
 		7BC75108137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */; };
@@ -46,6 +47,7 @@
 		7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
 		7B7B887613652FA70005D773 /* NSEnumerator+HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEnumerator+HBCollections.h"; sourceTree = "<group>"; };
 		7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEnumerator+HBCollections.m"; sourceTree = "<group>"; };
+		7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsBreakEnumeratorTest.m; sourceTree = "<group>"; };
 		7BC751001372574300FF83E6 /* HBCollectionsTestCaseEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsTestCaseEnumerator.h; sourceTree = "<group>"; };
 		7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsTestCaseEnumerator.m; sourceTree = "<group>"; };
 		7BC751031372581700FF83E6 /* HBCollectionsStackBufEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsStackBufEnumerator.h; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				7BC751001372574300FF83E6 /* HBCollectionsTestCaseEnumerator.h */,
 				7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */,
 				7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */,
+				7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */,
 				7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */,
 				7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */,
 			);
@@ -191,6 +194,7 @@
 				7BC75108137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m in Sources */,
 				7BC7510A1372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m in Sources */,
 				7BC7510C1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m in Sources */,
+				7B8F65711378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

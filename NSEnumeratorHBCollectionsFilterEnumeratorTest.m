@@ -5,7 +5,7 @@
 #import "HBCollectionsItemsPtrEnumerator.h"
 
 @interface NSEnumeratorHBCollectionsFilterEnumeratorTest : GHTestCase {
-	BOOL (^testFilterBlock)(id, BOOL *);
+	BOOL (^testFilterBlock)(id);
 	NSArray *testData;
 	NSArray *expectedFilteredData;
 }
@@ -17,7 +17,7 @@
 - (void) setUp {
 	[super setUp];
 	
-	testFilterBlock = ^(id obj, BOOL *stop) {
+	testFilterBlock = ^(id obj) {
 		if ([@"0" isEqualToString:obj]) {
 			return YES;
 		} else if ([@"1" isEqualToString:obj]) {
@@ -64,7 +64,7 @@
 }
 
 - (void) test_NextObject_Returns_Objects_In_Order_Filtered_By_Block_When_Multiple_Objects_Are_Consecutively_Filtered {
-	NSEnumerator *testObject = [[testData objectEnumerator] hb_filterEnumeratorUsingBlock:^(id obj, BOOL *stop) {
+	NSEnumerator *testObject = [[testData objectEnumerator] hb_filterEnumeratorUsingBlock:^(id obj) {
 		return (BOOL)[@"2" isEqual:obj];
 	}];
 	
@@ -183,7 +183,7 @@
 	}
 	
 	NSMutableArray *actualFilteredArray = [NSMutableArray arrayWithCapacity:largeCount];
-	NSEnumerator *testObject = [[largeMutableArray objectEnumerator] hb_filterEnumeratorUsingBlock:^(id obj, BOOL *stop) {
+	NSEnumerator *testObject = [[largeMutableArray objectEnumerator] hb_filterEnumeratorUsingBlock:^(id obj) {
 		NSString *string = obj;
 		return (BOOL)(([string intValue] % 2) == 1);
 	}];

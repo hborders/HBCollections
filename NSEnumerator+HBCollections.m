@@ -68,16 +68,16 @@
 - (id) initWithMapeeEnumerator: (NSEnumerator *) mapeeEnumerator 
 					  andBlock: (id (^)(id obj)) block {
 	if (self = [super init]) {
-		self.mapeeEnumerator = mapeeEnumerator;
-		self.block = block;
+		_mapeeEnumerator = [mapeeEnumerator retain];
+		_block = [block copy];
 	}
 	
 	return self;
 }
 
 - (void) dealloc {
-	self.mapeeEnumerator = nil;
-	self.block = nil;
+	[_mapeeEnumerator release];
+	[_block release];
 	
 	[super dealloc];
 }
@@ -86,18 +86,18 @@
 #pragma mark NSEnumerator
 
 - (NSArray *) allObjects {
-	NSArray *allObjects = [self.mapeeEnumerator allObjects];
+	NSArray *allObjects = [_mapeeEnumerator allObjects];
 	NSMutableArray *mappedObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
 	for (id obj in allObjects) {
-		[mappedObjects addObject:self.block(obj)];
+		[mappedObjects addObject:_block(obj)];
 	}
 	return mappedObjects;
 }
 
 - (id) nextObject {
-	id nextObject = [self.mapeeEnumerator nextObject];
+	id nextObject = [_mapeeEnumerator nextObject];
 	if (nextObject) {
-		return self.block(nextObject);
+		return _block(nextObject);
 	} else {
 		return nil;
 	}
@@ -106,51 +106,51 @@
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
 								  objects:(id *)stackbuf
 									count:(NSUInteger)len {
-	if (self.mapeeItemsIndex < self.mapeeItemsCount) {
-		const NSUInteger count = MIN(len, self.mapeeItemsCount - self.mapeeItemsIndex);
+	if (_mapeeItemsIndex < _mapeeItemsCount) {
+		const NSUInteger count = MIN(len, _mapeeItemsCount - _mapeeItemsIndex);
 		state->itemsPtr = stackbuf;
 		for (NSUInteger i = 0; i < count; i++) {
-			stackbuf[i] = self.block(self.mapeeItemsPtr[self.mapeeItemsIndex + i]);
+			stackbuf[i] = _block(_mapeeItemsPtr[_mapeeItemsIndex + i]);
 		}
-		self.mapeeItemsIndex += count;
+		_mapeeItemsIndex += count;
 		
 		return count;
 	} else {
-		if (self.mapeeItemsPtr) {
-			state->itemsPtr = self.mapeeItemsPtr;
-			self.mapeeItemsPtr = NULL;
-			self.mapeeItemsIndex = 0;
-			self.mapeeItemsCount = 0;
+		if (_mapeeItemsPtr) {
+			state->itemsPtr = _mapeeItemsPtr;
+			_mapeeItemsPtr = NULL;
+			_mapeeItemsIndex = 0;
+			_mapeeItemsCount = 0;
 		}
 		
-		NSUInteger count = [self.mapeeEnumerator countByEnumeratingWithState:state
-																	 objects:stackbuf
-																	   count:len];
+		NSUInteger count = [_mapeeEnumerator countByEnumeratingWithState:state
+																 objects:stackbuf
+																   count:len];
 		if (state->itemsPtr == stackbuf) {
 			for (NSUInteger i = 0; i < count; i++) {
-				stackbuf[i] = self.block(stackbuf[i]);
+				stackbuf[i] = _block(stackbuf[i]);
 			}
 			
 			return count;
 		} else if (len < count) {
-			self.mapeeItemsPtr = state->itemsPtr;
-			self.mapeeItemsIndex = len;
-			self.mapeeItemsCount = count;
+			_mapeeItemsPtr = state->itemsPtr;
+			_mapeeItemsIndex = len;
+			_mapeeItemsCount = count;
 			state->itemsPtr = stackbuf;
 			
 			for (NSUInteger i=0; i < len; i++) {
-				stackbuf[i] = self.block(self.mapeeItemsPtr[i]);
+				stackbuf[i] = _block(_mapeeItemsPtr[i]);
 			}
 			
 			return len;
 		} else {
-			self.mapeeItemsPtr = state->itemsPtr;
-			self.mapeeItemsIndex = count;
-			self.mapeeItemsCount = count;
+			_mapeeItemsPtr = state->itemsPtr;
+			_mapeeItemsIndex = count;
+			_mapeeItemsCount = count;
 			state->itemsPtr = stackbuf;
 			
 			for (NSUInteger i = 0; i < count; i++) {
-				stackbuf[i] = self.block(self.mapeeItemsPtr[i]);
+				stackbuf[i] = _block(_mapeeItemsPtr[i]);
 			}
 			
 			return count;
@@ -185,16 +185,16 @@
 - (id) initWithFiltereeEnumerator: (NSEnumerator *) filtereeEnumerator 
 						 andBlock: (BOOL (^)(id obj)) block {
 	if (self = [super init]) {
-		self.filtereeEnumerator = filtereeEnumerator;
-		self.block = block;
+		_filtereeEnumerator = [filtereeEnumerator retain];
+		_block = [block copy];
 	}
 	
 	return self;
 }
 
 - (void) dealloc {
-	self.filtereeEnumerator = nil;
-	self.block = nil;
+	[_filtereeEnumerator release];
+	[_block release];
 	
 	[super dealloc];
 }
@@ -203,10 +203,10 @@
 #pragma mark NSEnumerator
 
 - (NSArray *) allObjects {
-	NSArray *allObjects = [self.filtereeEnumerator allObjects];
+	NSArray *allObjects = [_filtereeEnumerator allObjects];
 	NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
 	for (id obj in allObjects) {
-		if (self.block(obj)) {
+		if (_block(obj)) {
 			[filteredObjects addObject:obj];	
 		}
 	}
@@ -215,8 +215,8 @@
 
 - (id) nextObject {
 	id nextObject;
-	while (nextObject = [self.filtereeEnumerator nextObject]) {
-		if (self.block(nextObject)) {
+	while (nextObject = [_filtereeEnumerator nextObject]) {
+		if (_block(nextObject)) {
 			return nextObject;	
 		}
 	}
@@ -226,59 +226,58 @@
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
 								  objects:(id *)stackbuf
 									count:(NSUInteger)len {
-	// breaking tests are caused by not continuing to iterate when all of the items in the filtereeEnumerator are filtered.
 	NSUInteger count = 0;
 	NSUInteger filteredItemsCount = 0;
 	do {
-		if (self.filtereeItemsIndex < self.filtereeItemsCount) {
-			count = MIN(len, self.filtereeItemsCount - self.filtereeItemsIndex);
+		if (_filtereeItemsPtr && (_filtereeItemsIndex < _filtereeItemsCount)) {
+			count = MIN(len, _filtereeItemsCount - _filtereeItemsIndex);
 			state->itemsPtr = stackbuf;
 			for (NSUInteger i = 0; i < count; i++) {
-				if (self.block(self.filtereeItemsPtr[self.filtereeItemsIndex + i])) {
-					stackbuf[filteredItemsCount] = self.filtereeItemsPtr[self.filtereeItemsIndex + i];
+				if (_block(_filtereeItemsPtr[_filtereeItemsIndex + i])) {
+					stackbuf[filteredItemsCount] = _filtereeItemsPtr[_filtereeItemsIndex + i];
 					filteredItemsCount++;
 				}
 			}
-			self.filtereeItemsIndex += count;
+			_filtereeItemsIndex += count;
 		} else {
-			if (self.filtereeItemsPtr) {
-				state->itemsPtr = self.filtereeItemsPtr;
-				self.filtereeItemsPtr = NULL;
-				self.filtereeItemsIndex = 0;
-				self.filtereeItemsCount = 0;
+			if (_filtereeItemsPtr) {
+				state->itemsPtr = _filtereeItemsPtr;
+				_filtereeItemsPtr = NULL;
+				_filtereeItemsIndex = 0;
+				_filtereeItemsCount = 0;
 			}
 			
-			count = [self.filtereeEnumerator countByEnumeratingWithState:state
-																 objects:stackbuf
-																   count:len];
+			count = [_filtereeEnumerator countByEnumeratingWithState:state
+															 objects:stackbuf
+															   count:len];
 			if (state->itemsPtr == stackbuf) {
 				for (NSUInteger i = 0; i < count; i++) {
-					if (self.block(stackbuf[i])) {
+					if (_block(stackbuf[i])) {
 						stackbuf[filteredItemsCount] = stackbuf[i];
 						filteredItemsCount++;
 					}
 				}
 			} else if (len < count) {
-				self.filtereeItemsPtr = state->itemsPtr;
-				self.filtereeItemsIndex = len;
-				self.filtereeItemsCount = count;
+				_filtereeItemsPtr = state->itemsPtr;
+				_filtereeItemsIndex = len;
+				_filtereeItemsCount = count;
 				state->itemsPtr = stackbuf;
 				
 				for (NSUInteger i=0; i < len; i++) {
-					if (self.block(self.filtereeItemsPtr[i])) {
-						stackbuf[filteredItemsCount] = self.filtereeItemsPtr[i];
+					if (_block(_filtereeItemsPtr[i])) {
+						stackbuf[filteredItemsCount] = _filtereeItemsPtr[i];
 						filteredItemsCount++;
 					}
 				}
 			} else {
-				self.filtereeItemsPtr = state->itemsPtr;
-				self.filtereeItemsIndex = count;
-				self.filtereeItemsCount = count;
+				_filtereeItemsPtr = state->itemsPtr;
+				_filtereeItemsIndex = count;
+				_filtereeItemsCount = count;
 				state->itemsPtr = stackbuf;
 				
 				for (NSUInteger i = 0; i < count; i++) {
-					if (self.block(self.filtereeItemsPtr[i])) {
-						stackbuf[filteredItemsCount] = self.filtereeItemsPtr[i];
+					if (_block(_filtereeItemsPtr[i])) {
+						stackbuf[filteredItemsCount] = _filtereeItemsPtr[i];
 						filteredItemsCount++;
 					}
 				}
@@ -306,16 +305,16 @@
 - (id) initWithBreakeeEnumerator: (NSEnumerator *) breakeeEnumerator
 						andBlock: (BOOL (^)(id)) block {
 	if (self = [super init]) {
-		self.breakeeEnumerator = breakeeEnumerator;
-		self.block = block;
+		_breakeeEnumerator = [breakeeEnumerator retain];
+		_block = [block copy];
 	}
 	
 	return self;
 }
 
 - (void) dealloc {
-	self.breakeeEnumerator = nil;
-	self.block = nil;
+	[_breakeeEnumerator release];
+	[_block release];
 	
 	[super dealloc];
 }
@@ -324,10 +323,10 @@
 #pragma mark NSEnumerator
 
 - (NSArray *) allObjects {
-	NSArray *allObjects = [self.breakeeEnumerator allObjects];
+	NSArray *allObjects = [_breakeeEnumerator allObjects];
 	NSMutableArray *breakedObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
 	for (id obj in allObjects) {
-		if (self.block(obj)) {
+		if (_block(obj)) {
 			break;
 		} else {
 			[breakedObjects addObject:obj];	
@@ -337,9 +336,9 @@
 }
 
 - (id) nextObject {
-	id nextObject = [self.breakeeEnumerator nextObject];
+	id nextObject = [_breakeeEnumerator nextObject];
 	
-	if (self.block(nextObject)) {
+	if (_block(nextObject)) {
 		return nil;
 	} else {
 		return nextObject;
@@ -349,13 +348,13 @@
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
 								  objects:(id *)stackbuf
 									count:(NSUInteger)len {
-	NSUInteger breakeeCount = [self.breakeeEnumerator countByEnumeratingWithState:state
-																		  objects:stackbuf
-																			count:len];
+	NSUInteger breakeeCount = [_breakeeEnumerator countByEnumeratingWithState:state
+																	  objects:stackbuf
+																		count:len];
 	NSUInteger count = 0;
 	
 	while (count < breakeeCount) {
-		if (self.block(state->itemsPtr[count])) {
+		if (_block(state->itemsPtr[count])) {
 			break;
 		} else {
 			count++;

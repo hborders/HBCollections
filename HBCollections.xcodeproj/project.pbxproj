@@ -129,8 +129,8 @@
 				7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */,
 				7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */,
 				7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */,
-				7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */,
 				7B8F65C41378F7F400A159FB /* NSEnumeratorHBCollectionsIntegrationTest.m */,
+				7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */,
 			);
 			name = Test;
 			sourceTree = "<group>";

@@ -15,7 +15,6 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 
 @end
 
-
 @implementation NSEnumerator(HBCollections)
 
 - (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block {
@@ -86,20 +85,19 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 
 @end
 
-@interface NSArray(HBMapFilterOrBreakBlock)
-
-- (void) hb_map: (id *) mappedObjectPtr
-		 filter: (BOOL *) shouldFilterPtr
-		orBreak: (BOOL *) shouldBreakPtr
-		 object: (id) obj;
-
-@end
-
+void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr, 
+						NSUInteger mapFilterOrBreakBlocksCount,
+						id obj,
+						id *mappedObjectPtr,
+						BOOL *shouldFilterPtr, 
+						BOOL *shouldBreakPtr);
 
 @interface HBMapFilterOrBreakEnumerator()
 
 @property (nonatomic, retain) NSEnumerator *mapFilterOrBreakeeEnumerator;
 @property (nonatomic, retain) NSArray *mapFilterOrBreakBlocks;
+@property (nonatomic) id *mapFilterOrBreakBlocksPtr;
+@property (nonatomic) NSUInteger mapFilterOrBreakBlocksCount;
 
 @property (nonatomic) id *mapFilterOrBreakeeItemsPtr;
 @property (nonatomic) NSUInteger mapFilterOrBreakeeItemsIndex;
@@ -113,6 +111,8 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 
 @synthesize mapFilterOrBreakeeEnumerator = _mapFilterOrBreakeeEnumerator;
 @synthesize mapFilterOrBreakBlocks = _mapFilterOrBreakBlocks;
+@synthesize mapFilterOrBreakBlocksPtr = _mapFilterOrBreakBlocksPtr;
+@synthesize mapFilterOrBreakBlocksCount = _mapFilterOrBreakBlocksCount;
 
 @synthesize mapFilterOrBreakeeItemsPtr = _mapFilterOrBreakeeItemsPtr;
 @synthesize mapFilterOrBreakeeItemsIndex = _mapFilterOrBreakeeItemsIndex;
@@ -124,18 +124,21 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 				  andMapFilterOrBreakBlocks: (NSArray *) mapFilterOrBreakBlocks {
 	self = [super init];
 	if (self) {
-		self.mapFilterOrBreakeeEnumerator = mapFilterOrBreakeeEnumerator;
-		self.mapFilterOrBreakBlocks = mapFilterOrBreakBlocks;
+		_mapFilterOrBreakeeEnumerator = [mapFilterOrBreakeeEnumerator retain];
+		_mapFilterOrBreakBlocks = [mapFilterOrBreakBlocks retain];
+		_mapFilterOrBreakBlocksCount = [_mapFilterOrBreakBlocks count];
+		_mapFilterOrBreakBlocksPtr = malloc(sizeof(id) * _mapFilterOrBreakBlocksCount);
+		[_mapFilterOrBreakBlocks getObjects:_mapFilterOrBreakBlocksPtr 
+									  range:NSMakeRange(0, _mapFilterOrBreakBlocksCount)];
 	}
 	
 	return self;
 }
 
 - (void) dealloc {
-	self.mapFilterOrBreakeeEnumerator = nil;
-	self.mapFilterOrBreakBlocks = nil;
-	
-	self.mapFilterOrBreakeeItemsPtr = nil;
+	[_mapFilterOrBreakeeEnumerator release];
+	[_mapFilterOrBreakBlocks release];
+	free(_mapFilterOrBreakBlocksPtr);
 	
 	[super dealloc];
 }
@@ -144,8 +147,8 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 #pragma mark public API
 
 - (HBMapFilterOrBreakEnumerator *) hb_addMapFilterOrBreakBlock: (HBMapFilterOrBreakBlock) mapFilterOrBreakBlock {
-	NSArray *newMapFilterOrBreakBlocks = [self.mapFilterOrBreakBlocks arrayByAddingObject:mapFilterOrBreakBlock];
-	return [[[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:self.mapFilterOrBreakeeEnumerator
+	NSArray *newMapFilterOrBreakBlocks = [_mapFilterOrBreakBlocks arrayByAddingObject:mapFilterOrBreakBlock];
+	return [[[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:_mapFilterOrBreakeeEnumerator
 															 andMapFilterOrBreakBlocks:newMapFilterOrBreakBlocks] autorelease];
 }
 
@@ -153,16 +156,18 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 #pragma mark NSEnumerator
 
 - (NSArray *) allObjects {
-	NSArray *allObjects = [self.mapFilterOrBreakeeEnumerator allObjects];
+	NSArray *allObjects = [_mapFilterOrBreakeeEnumerator allObjects];
 	NSMutableArray *mappedObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
 	for (id obj in allObjects) {
 		id mappedObj;
 		BOOL shouldFilter;
 		BOOL shouldBreak;
-		[self.mapFilterOrBreakBlocks hb_map:&mappedObj
-									 filter:&shouldFilter
-									orBreak:&shouldBreak
-									 object:obj];
+		HBMapFilterOrBreak(_mapFilterOrBreakBlocksPtr,
+						   _mapFilterOrBreakBlocksCount,
+						   obj,
+						   &mappedObj,
+						   &shouldFilter,
+						   &shouldBreak);
 		if (shouldBreak) {
 			break;
 		} else if (shouldFilter) {
@@ -173,15 +178,17 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 }
 
 - (id) nextObject {
-	id nextObject;
-	while (nextObject = [self.mapFilterOrBreakeeEnumerator nextObject]) {
+	id obj;
+	while (obj = [_mapFilterOrBreakeeEnumerator nextObject]) {
 		id mappedObj;
 		BOOL shouldFilter;
 		BOOL shouldBreak;
-		[self.mapFilterOrBreakBlocks hb_map:&mappedObj
-									 filter:&shouldFilter
-									orBreak:&shouldBreak
-									 object:nextObject];
+		HBMapFilterOrBreak(_mapFilterOrBreakBlocksPtr,
+						   _mapFilterOrBreakBlocksCount,
+						   obj,
+						   &mappedObj,
+						   &shouldFilter,
+						   &shouldBreak);
 		if (shouldBreak) {
 			return nil;
 		} else if (shouldFilter) {
@@ -194,57 +201,61 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
 								  objects:(id *)stackbuf
 									count:(NSUInteger)len {
-	if (self.mapFilterOrBreakItemsBroken) {
+	if (_mapFilterOrBreakItemsBroken) {
 		return 0;
 	} else {
 		NSUInteger count = 0;
 		NSUInteger filteredItemsCount = 0;
 		do {
-			if (self.mapFilterOrBreakeeItemsPtr && 
-				(self.mapFilterOrBreakeeItemsIndex < self.mapFilterOrBreakeeItemsCount)) {
-				count = MIN(len, self.mapFilterOrBreakeeItemsCount - self.mapFilterOrBreakeeItemsIndex);
+			if (_mapFilterOrBreakeeItemsPtr && 
+				(_mapFilterOrBreakeeItemsIndex < _mapFilterOrBreakeeItemsCount)) {
+				count = MIN(len, _mapFilterOrBreakeeItemsCount - _mapFilterOrBreakeeItemsIndex);
 				state->itemsPtr = stackbuf;
 				for (NSUInteger i = 0; i < count; i++) {
-					id obj = self.mapFilterOrBreakeeItemsPtr[self.mapFilterOrBreakeeItemsIndex + i];
+					id obj = _mapFilterOrBreakeeItemsPtr[_mapFilterOrBreakeeItemsIndex + i];
 					id mappedObj;
 					BOOL shouldFilter;
 					BOOL shouldBreak;
-					[self.mapFilterOrBreakBlocks hb_map:&mappedObj
-												 filter:&shouldFilter
-												orBreak:&shouldBreak
-												 object:obj];
+					HBMapFilterOrBreak(_mapFilterOrBreakBlocksPtr,
+									   _mapFilterOrBreakBlocksCount,
+									   obj,
+									   &mappedObj,
+									   &shouldFilter,
+									   &shouldBreak);
 					if (shouldBreak) {
-						self.mapFilterOrBreakItemsBroken = YES;
+						_mapFilterOrBreakItemsBroken = YES;
 						break;
 					} else if (shouldFilter) {
 						stackbuf[filteredItemsCount] = mappedObj;
 						filteredItemsCount++;
 					}
 				}
-				self.mapFilterOrBreakeeItemsIndex += count;
+				_mapFilterOrBreakeeItemsIndex += count;
 			} else {
-				if (self.mapFilterOrBreakeeItemsPtr) {
-					state->itemsPtr = self.mapFilterOrBreakeeItemsPtr;
-					self.mapFilterOrBreakeeItemsPtr = NULL;
-					self.mapFilterOrBreakeeItemsIndex = 0;
-					self.mapFilterOrBreakeeItemsCount = 0;
+				if (_mapFilterOrBreakeeItemsPtr) {
+					state->itemsPtr = _mapFilterOrBreakeeItemsPtr;
+					_mapFilterOrBreakeeItemsPtr = NULL;
+					_mapFilterOrBreakeeItemsIndex = 0;
+					_mapFilterOrBreakeeItemsCount = 0;
 				}
 				
-				count = [self.mapFilterOrBreakeeEnumerator countByEnumeratingWithState:state
-																			   objects:stackbuf
-																				 count:len];
+				count = [_mapFilterOrBreakeeEnumerator countByEnumeratingWithState:state
+																		   objects:stackbuf
+																			 count:len];
 				if (state->itemsPtr == stackbuf) {
 					for (NSUInteger i = 0; i < count; i++) {
 						id obj = stackbuf[i];
 						id mappedObj;
 						BOOL shouldFilter;
 						BOOL shouldBreak;
-						[self.mapFilterOrBreakBlocks hb_map:&mappedObj
-													 filter:&shouldFilter
-													orBreak:&shouldBreak
-													 object:obj];
+						HBMapFilterOrBreak(_mapFilterOrBreakBlocksPtr,
+										   _mapFilterOrBreakBlocksCount,
+										   obj,
+										   &mappedObj,
+										   &shouldFilter,
+										   &shouldBreak);
 						if (shouldBreak) {
-							self.mapFilterOrBreakItemsBroken = YES;
+							_mapFilterOrBreakItemsBroken = YES;
 							break;
 						} else if (shouldFilter) {
 							stackbuf[filteredItemsCount] = mappedObj;
@@ -252,22 +263,24 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 						}
 					}
 				} else if (len < count) {
-					self.mapFilterOrBreakeeItemsPtr = state->itemsPtr;
-					self.mapFilterOrBreakeeItemsIndex = len;
-					self.mapFilterOrBreakeeItemsCount = count;
+					_mapFilterOrBreakeeItemsPtr = state->itemsPtr;
+					_mapFilterOrBreakeeItemsIndex = len;
+					_mapFilterOrBreakeeItemsCount = count;
 					state->itemsPtr = stackbuf;
 					
 					for (NSUInteger i=0; i < len; i++) {
-						id obj = self.mapFilterOrBreakeeItemsPtr[i];
+						id obj = _mapFilterOrBreakeeItemsPtr[i];
 						id mappedObj;
 						BOOL shouldFilter;
 						BOOL shouldBreak;
-						[self.mapFilterOrBreakBlocks hb_map:&mappedObj
-													 filter:&shouldFilter
-													orBreak:&shouldBreak
-													 object:obj];
+						HBMapFilterOrBreak(_mapFilterOrBreakBlocksPtr,
+										   _mapFilterOrBreakBlocksCount,
+										   obj,
+										   &mappedObj,
+										   &shouldFilter,
+										   &shouldBreak);
 						if (shouldBreak) {
-							self.mapFilterOrBreakItemsBroken = YES;
+							_mapFilterOrBreakItemsBroken = YES;
 							break;
 						} else if (shouldFilter) {
 							stackbuf[filteredItemsCount] = mappedObj;
@@ -275,22 +288,24 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 						}
 					}
 				} else {
-					self.mapFilterOrBreakeeItemsPtr = state->itemsPtr;
-					self.mapFilterOrBreakeeItemsIndex = count;
-					self.mapFilterOrBreakeeItemsCount = count;
+					_mapFilterOrBreakeeItemsPtr = state->itemsPtr;
+					_mapFilterOrBreakeeItemsIndex = count;
+					_mapFilterOrBreakeeItemsCount = count;
 					state->itemsPtr = stackbuf;
 					
 					for (NSUInteger i = 0; i < count; i++) {
-						id obj = self.mapFilterOrBreakeeItemsPtr[i];
+						id obj = _mapFilterOrBreakeeItemsPtr[i];
 						id mappedObj;
 						BOOL shouldFilter;
 						BOOL shouldBreak;
-						[self.mapFilterOrBreakBlocks hb_map:&mappedObj
-													 filter:&shouldFilter
-													orBreak:&shouldBreak
-													 object:obj];
+						HBMapFilterOrBreak(_mapFilterOrBreakBlocksPtr,
+										   _mapFilterOrBreakBlocksCount,
+										   obj,
+										   &mappedObj,
+										   &shouldFilter,
+										   &shouldBreak);
 						if (shouldBreak) {
-							self.mapFilterOrBreakItemsBroken = YES;
+							_mapFilterOrBreakItemsBroken = YES;
 							break;
 						} else if (shouldFilter) {
 							stackbuf[filteredItemsCount] = mappedObj;
@@ -301,7 +316,7 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 			}
 		} while ((filteredItemsCount == 0) && 
 				 (count != 0) &&
-				 !self.mapFilterOrBreakItemsBroken);
+				 !_mapFilterOrBreakItemsBroken);
 		
 		return filteredItemsCount;
 	}
@@ -309,17 +324,19 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 
 @end
 
-@implementation NSArray(HBMapFilterOrBreakBlock)
-
-- (void) hb_map: (id *) mappedObjectPtr
-		 filter: (BOOL *) shouldFilterPtr
-		orBreak: (BOOL *) shouldBreakPtr
-		 object: (id) obj {
+void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr, 
+						NSUInteger mapFilterOrBreakBlocksCount,
+						id obj,
+						id *mappedObjectPtr,
+						BOOL *shouldFilterPtr, 
+						BOOL *shouldBreakPtr) {
 	id mappedObj = obj;
 	id nextMappedObj;
 	BOOL shouldFilter;
 	BOOL shouldBreak;
-	for (HBMapFilterOrBreakBlock mapFilterOrBreakBlock in self) {
+	
+	for (NSUInteger i = 0; i < mapFilterOrBreakBlocksCount; i++) {
+		HBMapFilterOrBreakBlock mapFilterOrBreakBlock = mapFilterOrBreakBlocksPtr[i];
 		mapFilterOrBreakBlock(mappedObj, &nextMappedObj, &shouldFilter, &shouldBreak);
 		if (shouldFilter && !shouldBreak) {
 			mappedObj = nextMappedObj;
@@ -332,5 +349,3 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 	*shouldFilterPtr = shouldFilter;
 	*shouldBreakPtr = shouldBreak;
 }
-
-@end

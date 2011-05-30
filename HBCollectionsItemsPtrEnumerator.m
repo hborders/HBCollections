@@ -4,6 +4,7 @@
 @interface HBCollectionsItemsPtrEnumerator()
 
 @property (nonatomic) NSFastEnumerationState lastFastEnumerationState;
+@property (nonatomic, retain) NSArray *elements;
 @property (nonatomic) id *elementsItemsPtr;
 
 @end
@@ -13,10 +14,12 @@
 @synthesize elementsFactoryBlock = _elementsFactoryBlock;
 
 @synthesize lastFastEnumerationState = _lastFastEnumerationState;
+@synthesize elements = _elements;
 @synthesize elementsItemsPtr = _elementsItemsPtr;
 
 - (void) dealloc {
 	self.elementsFactoryBlock = nil;
+	self.elements = nil;
 	if (self.elementsItemsPtr) {
 		free(self.elementsItemsPtr);
 		self.elementsItemsPtr = NULL;
@@ -34,9 +37,9 @@
 	static unsigned long mutationsPtr = 0;
 	switch (state->state) {
 		case 0: {
-			NSArray *elements = self.elementsFactoryBlock(len);
-			self.elementsItemsPtr = (id *) malloc(sizeof(id) * [elements count]);
-			[elements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			self.elements = self.elementsFactoryBlock(len);
+			self.elementsItemsPtr = (id *) malloc(sizeof(id) * [self.elements count]);
+			[self.elements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 				self.elementsItemsPtr[idx] = obj;
 			}];
 			
@@ -52,7 +55,7 @@
 			
 			self.lastFastEnumerationState = lastFastEnumerationState;
 			
-			return [elements count];
+			return [self.elements count];
 		}
 		case 1:
 			GHAssertEquals(state->state, self.lastFastEnumerationState.state, nil);

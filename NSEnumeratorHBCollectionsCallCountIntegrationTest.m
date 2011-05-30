@@ -3,7 +3,7 @@
 #import <GHUnit/GHUnit.h>
 #import <OCMock/OCMock.h>
 
-@interface NSEnumeratorHBCollectionsIntegrationTest : GHTestCase {
+@interface NSEnumeratorHBCollectionsCallCountIntegrationTest : GHTestCase {
 	HBCollectionsStackBufEnumerator *testEnumerator;
 
 	NSUInteger mapCount;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation NSEnumeratorHBCollectionsIntegrationTest
+@implementation NSEnumeratorHBCollectionsCallCountIntegrationTest
 
 - (void) setUp {
 	[super setUp];

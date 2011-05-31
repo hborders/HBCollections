@@ -10,14 +10,17 @@
 	
 	id mappedValue;
 	
+	void (^enumerateBlock1)(id);
 	id (^mapBlock1)(id);
 	BOOL (^filterBlock1)(id);
 	BOOL (^breakBlock1)(id);
 	
+	void (^enumerateBlock2)(id);
 	id (^mapBlock2)(id);
 	BOOL (^filterBlock2)(id);
 	BOOL (^breakBlock2)(id);
 	
+	id lastEnumerateBlock2Obj;
 	id lastMapBlock2Obj;
 	id lastFilterBlock2Obj;
 	id lastBreakBlock2Obj;	
@@ -39,6 +42,8 @@
 	
 	mappedValue = @"one";
 	
+	enumerateBlock1 = [[^(id obj) {
+	} copy] autorelease];
 	mapBlock1 = [[^(id obj) {
 		if (obj == originalValue) {
 			return mappedValue;
@@ -53,6 +58,9 @@
 		return NO;
 	} copy] autorelease];
 	
+	enumerateBlock2 = [[^(id obj) {
+		lastEnumerateBlock2Obj = obj;
+	} copy] autorelease];
 	mapBlock2 = [[^(id obj) {
 		lastMapBlock2Obj = obj;
 		if (obj == mappedValue) {
@@ -75,56 +83,98 @@
 	lastBreakBlock2Obj = nil;
 }
 
+- (void) test_Enumerate_Gets_Value_From_Preceding_Enumerate {
+	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastEnumerateBlock2Obj, originalValue, nil);
+}
+
+- (void) test_Enumerate_Gets_Value_From_Preceding_Map {
+	[[[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastEnumerateBlock2Obj, mappedValue, nil);
+}
+
+- (void) test_Enumerate_Gets_Value_From_Preceding_Filter {
+	[[[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastEnumerateBlock2Obj, originalValue, nil);
+}
+
+- (void) test_Enumerate_Gets_Value_From_Preceding_Break {
+	[[[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastEnumerateBlock2Obj, originalValue, nil);
+}
+
+- (void) test_Map_Gets_Value_From_Preceding_Enumerate {
+	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_mapEnumeratorUsingBlock:mapBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
+}
+
 - (void) test_Map_Gets_Mapped_Value_From_Preceding_Map {
-	for (id obj in [[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_mapEnumeratorUsingBlock:mapBlock2]);
+	[[[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_mapEnumeratorUsingBlock:mapBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastMapBlock2Obj, mappedValue, nil);
 }
 
+- (void) test_Map_Gets_Value_From_Preceding_Filter {
+	[[[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_mapEnumeratorUsingBlock:mapBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
+}
+
+- (void) test_Map_Gets_Value_From_Preceding_Break {
+	[[[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_mapEnumeratorUsingBlock:mapBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
+}
+
+- (void) test_Filter_Gets_Value_From_Preceding_Enumerate {
+	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_filterEnumeratorUsingBlock:filterBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastFilterBlock2Obj, originalValue, nil);
+}
+
 - (void) test_Filter_Gets_Mapped_Value_From_Preceding_Map {
-	for (id obj in [[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_filterEnumeratorUsingBlock:filterBlock2]);
+	[[[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_filterEnumeratorUsingBlock:filterBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastFilterBlock2Obj, mappedValue, nil);
 }
 
-- (void) test_Break_Gets_Mapped_Value_From_Preceding_Map {
-	for (id obj in [[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_breakEnumeratorUsingBlock:breakBlock2]);
-	
-	GHAssertEqualObjects(lastBreakBlock2Obj, mappedValue, nil);
-}
-
-- (void) test_Map_Gets_Value_From_Preceding_Filter {
-	for (id obj in [[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_mapEnumeratorUsingBlock:mapBlock2]);
-	
-	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
-}
-
 - (void) test_Filter_Gets_Value_From_Preceding_Filter {
-	for (id obj in [[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_filterEnumeratorUsingBlock:filterBlock2]);
+	[[[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_filterEnumeratorUsingBlock:filterBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastFilterBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Break_Gets_Value_From_Preceding_Filter {
-	for (id obj in [[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_breakEnumeratorUsingBlock:breakBlock2]);
+- (void) test_Filter_Gets_Value_From_Preceding_Break {
+	[[[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_filterEnumeratorUsingBlock:filterBlock2] hb_enumerate];
+	
+	GHAssertEqualObjects(lastFilterBlock2Obj, originalValue, nil);
+}
+
+- (void) test_Break_Gets_Value_From_Preceding_Enumerate {
+	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_breakEnumeratorUsingBlock:breakBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastBreakBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Map_Gets_Value_From_Preceding_Break {
-	for (id obj in [[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_mapEnumeratorUsingBlock:mapBlock2]);
+- (void) test_Break_Gets_Mapped_Value_From_Preceding_Map {
+	[[[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_breakEnumeratorUsingBlock:breakBlock2] hb_enumerate];
 	
-	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
+	GHAssertEqualObjects(lastBreakBlock2Obj, mappedValue, nil);
 }
 
-- (void) test_Filter_Gets_Value_From_Preceding_Break {
-	for (id obj in [[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_filterEnumeratorUsingBlock:filterBlock2]);
+- (void) test_Break_Gets_Value_From_Preceding_Filter {
+	[[[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_breakEnumeratorUsingBlock:breakBlock2] hb_enumerate];
 	
-	GHAssertEqualObjects(lastFilterBlock2Obj, originalValue, nil);
+	GHAssertEqualObjects(lastBreakBlock2Obj, originalValue, nil);
 }
 
 - (void) test_Break_Gets_Value_From_Preceding_Break {
-	for (id obj in [[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_breakEnumeratorUsingBlock:breakBlock2]);
+	[[[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_breakEnumeratorUsingBlock:breakBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastBreakBlock2Obj, originalValue, nil);
 }

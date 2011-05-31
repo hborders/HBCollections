@@ -1,7 +1,8 @@
 #import <GHUnit/GHUnit.h>
 #import "NSEnumerator+HBCollections.h"
+#import "NSArray+HBCollections.h"
 
-#define HBCollectionsPerformanceTestCloseFactor 1.5
+#define HBCollectionsPerformanceTestCloseFactor 1.6
 #define HBCollectionsPerformanceTestNotTerribleFactor 5
 
 @interface HBCollectionsPerformanceTest : GHTestCase {
@@ -32,12 +33,12 @@
 	[super tearDown];
 }
 
-- (void) test_Large_Array_Map_Performance_Is_Close_To_For_Loop {
+- (void) test_Large_Array_Enumerate_Performance_Is_Close_To_For_Loop {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	NSDate *forLoopStartDate = [NSDate date];
+	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	for (NSNumber *number in largeArray) {
-		[forLooped addObject:[number stringValue]];
+		[forLooped addObject:number];
 	}
 	NSTimeInterval forLoopTimeInterval = -[forLoopStartDate timeIntervalSinceNow];
 	[pool drain];
@@ -45,13 +46,33 @@
 	pool = [[NSAutoreleasePool alloc] init];
 	NSMutableArray *hbCollectionsed = [NSMutableArray arrayWithCapacity:large];
 	NSDate *hbCollectionsStartDate = [NSDate date];
-	for (NSString *string in [[largeArray objectEnumerator] hb_mapEnumeratorUsingBlock:^(id obj) {
+	[[largeArray hb_enumeratorUsingBlock:^(id obj) {
+		[hbCollectionsed addObject:obj];
+	}] hb_enumerate];
+	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
+	[pool drain];
+	
+	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
+}
+
+- (void) test_Large_Array_Map_Performance_Is_Close_To_For_Loop {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSDate *forLoopStartDate = [NSDate date];
+	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
+	for (NSNumber *number in largeArray) {
+		[forLooped addObject:[number stringValue]];
+	}
+	NSTimeInterval forLoopTimeInterval = -[forLoopStartDate timeIntervalSinceNow];
+	[pool drain];
+	
+	pool = [[NSAutoreleasePool alloc] init];
+	NSDate *hbCollectionsStartDate = [NSDate date];
+	NSArray *hbCollectionsed = [[largeArray hb_mapEnumeratorUsingBlock:^(id obj) {
 		NSNumber *number = obj;
 		return (id) [number stringValue];
-	}]) {
-		[hbCollectionsed addObject:string];
-	}
+	}] allObjects];
 	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
+	[hbCollectionsed count]; // make unused warning go away
 	[pool drain];
 	
 	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
@@ -61,8 +82,8 @@
 	NSNumber *filterNumber = [NSNumber numberWithInt:42];
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	NSDate *forLoopStartDate = [NSDate date];
+	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	for (NSNumber *number in largeArray) {
 		if ([number isEqualToNumber:filterNumber]) {
 			[forLooped addObject:number];
@@ -72,14 +93,12 @@
 	[pool drain];
 	
 	pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *hbCollectionsed = [NSMutableArray arrayWithCapacity:large];
 	NSDate *hbCollectionsStartDate = [NSDate date];
-	for (NSNumber *number in [[largeArray objectEnumerator] hb_filterEnumeratorUsingBlock:^(id obj) {
+	NSArray *hbCollectionsed = [[largeArray hb_filterEnumeratorUsingBlock:^(id obj) {
 		return [obj isEqualToNumber:filterNumber];
-	}]) {
-		[hbCollectionsed addObject:number];
-	}
+	}] allObjects];
 	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
+	[hbCollectionsed count]; // make unused warning go away
 	[pool drain];
 	
 	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
@@ -89,8 +108,8 @@
 	NSUInteger lateBreakIndex = [largeArray count] - 1;
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	NSDate *forLoopStartDate = [NSDate date];
+	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	for (NSNumber *number in largeArray) {
 		if ([forLooped count] == lateBreakIndex) {
 			break;	
@@ -101,14 +120,14 @@
 	[pool drain];
 	
 	pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *hbCollectionsed = [NSMutableArray arrayWithCapacity:large];
 	NSDate *hbCollectionsStartDate = [NSDate date];
-	for (NSNumber *number in [[largeArray objectEnumerator] hb_breakEnumeratorUsingBlock:^(id obj) {
-		return (BOOL)([hbCollectionsed count] == lateBreakIndex);
-	}]) {
-		[hbCollectionsed addObject:number];
-	}
+	__block NSUInteger count = 0;
+	NSArray *hbCollectionsed = [[largeArray hb_breakEnumeratorUsingBlock:^(id obj) {
+		count++;
+		return (BOOL)(count == lateBreakIndex);
+	}] allObjects];
 	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
+	[hbCollectionsed count]; // make unused warning go away
 	[pool drain];
 	
 	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
@@ -118,8 +137,8 @@
 	NSUInteger earlyBreakIndex = 1000;
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	NSDate *forLoopStartDate = [NSDate date];
+	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	for (NSNumber *number in largeArray) {
 		if ([forLooped count] == earlyBreakIndex) {
 			break;	
@@ -130,14 +149,14 @@
 	[pool drain];
 	
 	pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *hbCollectionsed = [NSMutableArray arrayWithCapacity:large];
 	NSDate *hbCollectionsStartDate = [NSDate date];
-	for (NSNumber *number in [[largeArray objectEnumerator] hb_breakEnumeratorUsingBlock:^(id obj) {
-		return (BOOL)([hbCollectionsed count] == earlyBreakIndex);
-	}]) {
-		[hbCollectionsed addObject:number];
-	}
+	__block NSUInteger count = 0;
+	NSArray *hbCollectionsed = [[largeArray hb_breakEnumeratorUsingBlock:^(id obj) {
+		count++;
+		return (BOOL)(count == earlyBreakIndex);
+	}] allObjects];
 	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
+	[hbCollectionsed count];
 	[pool drain];
 	
 	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
@@ -147,8 +166,8 @@
 	NSNumber *filterNumber = [NSNumber numberWithInt:42];
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	NSDate *forLoopStartDate = [NSDate date];
+	NSMutableArray *forLooped = [NSMutableArray arrayWithCapacity:large];
 	for (NSNumber *number in largeArray) {
 		NSString *stringValue = [number stringValue];
 		NSNumber *numberValue = [NSNumber numberWithInteger:[stringValue integerValue]];
@@ -160,18 +179,16 @@
 	[pool drain];
 	
 	pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *hbCollectionsed = [NSMutableArray arrayWithCapacity:large];
 	NSDate *hbCollectionsStartDate = [NSDate date];
-	for (NSNumber *renumber in [[[largeArray objectEnumerator] hb_mapEnumeratorUsingBlock:^(id obj) {
+	NSArray *hbCollectionsed = [[[largeArray hb_mapEnumeratorUsingBlock:^(id obj) {
 		NSNumber *number = obj;
 		return (id) [number stringValue];
 	}] hb_mapEnumeratorUsingBlock:^(id obj) {
 		NSString *stringValue = obj;
 		return (id) [NSNumber numberWithInteger:[stringValue integerValue]];
-	}]) {
-		[hbCollectionsed addObject:renumber];
-	}
+	}] allObjects];
 	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
+	[hbCollectionsed count]; // make unused warning go away
 	[pool drain];
 	
 	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);

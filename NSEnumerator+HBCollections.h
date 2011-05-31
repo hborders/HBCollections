@@ -3,6 +3,8 @@
 
 @interface NSEnumerator(HBCollections)<HBCollection>
 
+- (void) hb_enumerate;
+
 - (NSSet *) hb_allObjectsAsSet;
 - (NSMutableSet *) hb_allObjectsAsMutableSet;
 

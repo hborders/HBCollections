@@ -4,6 +4,14 @@
 
 @implementation NSSet(HBCollections)
 
+- (NSEnumerator *) hb_enumeratorUsingBlock:(void (^)(id obj)) block {
+	HBMapFilterOrBreakEnumerator *plainMapFilterOrBreakEnumerator =
+		(HBMapFilterOrBreakEnumerator *) [[self objectEnumerator] hb_enumeratorUsingBlock:block];
+	plainMapFilterOrBreakEnumerator.hb_allObjectsSizeHint = [self count];
+	
+	return plainMapFilterOrBreakEnumerator;
+}
+
 - (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block {
 	HBMapFilterOrBreakEnumerator *mapMapFilterOrBreakEnumerator =
 		(HBMapFilterOrBreakEnumerator *) [[self objectEnumerator] hb_mapEnumeratorUsingBlock:block];

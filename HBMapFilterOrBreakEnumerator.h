@@ -13,10 +13,6 @@ typedef void (^HBMapFilterOrBreakBlock)(id obj,
 - (id) initWithMapFilterOrBreakeeEnumerator: (NSEnumerator *) mapFilterOrBreakeeEnumerator
 				  andMapFilterOrBreakBlocks: (NSArray *) mapFilterOrBreakBlocks;
 
-- (id) initWithMapFilterOrBreakeeEnumerator: (NSEnumerator *) mapFilterOrBreakeeEnumerator
-				  andMapFilterOrBreakBlocks: (NSArray *) mapFilterOrBreakBlocks
-					  andAllObjectsSizeHint: (NSUInteger) allObjectsSizeHint;
-
 - (HBMapFilterOrBreakEnumerator *) hb_addMapFilterOrBreakBlock: (HBMapFilterOrBreakBlock) mapFilterOrBreakBlock;
 
 @end

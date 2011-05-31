@@ -1,5 +1,6 @@
 @protocol HBCollection
 
+- (NSEnumerator *) hb_enumeratorUsingBlock:(void (^)(id obj)) block;
 - (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block;
 - (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
 - (NSEnumerator *) hb_breakEnumeratorUsingBlock:(BOOL (^)(id obj)) block;

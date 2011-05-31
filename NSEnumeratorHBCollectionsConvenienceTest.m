@@ -33,6 +33,22 @@
 	} copy] autorelease];
 }
 
+- (void) testEnumerateCallsBlockWithEachElementInOrder {
+	NSMutableArray *givenElements = [NSMutableArray array];
+	[[testObject hb_enumeratorUsingBlock:^(id obj) {
+		[givenElements addObject:obj];
+	}] hb_enumerate];
+	
+	NSMutableArray *expected = [NSMutableArray arrayWithObjects:
+								@"1",
+								@"1",
+								@"2",
+								@"3",
+								nil];
+	
+	GHAssertEqualObjects(givenElements, expected, nil);
+}
+
 - (void) testAllObjectsAsSet {
 	NSSet *expected = [NSSet setWithObjects:
 					   @"1",

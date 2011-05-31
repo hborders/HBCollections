@@ -19,6 +19,10 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 @property (nonatomic) NSUInteger mapFilterOrBreakeeItemsCount;
 @property (nonatomic) BOOL mapFilterOrBreakItemsBroken;
 
+- (id) initWithMapFilterOrBreakeeEnumerator: (NSEnumerator *) mapFilterOrBreakeeEnumerator
+				  andMapFilterOrBreakBlocks: (NSArray *) mapFilterOrBreakBlocks
+					  andAllObjectsSizeHint: (NSUInteger) allObjectsSizeHint;
+
 @end
 
 
@@ -82,9 +86,8 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 #pragma mark NSEnumerator
 
 - (NSArray *) allObjects {
-	NSArray *allObjects = [_mapFilterOrBreakeeEnumerator allObjects];
-	NSMutableArray *mappedObjects = [NSMutableArray arrayWithCapacity:[allObjects count]];
-	for (id obj in allObjects) {
+	NSMutableArray *mappedObjects = [NSMutableArray arrayWithCapacity:_hb_allObjectsSizeHint];
+	for (id obj in _mapFilterOrBreakeeEnumerator) {
 		id mappedObj;
 		BOOL shouldFilter;
 		BOOL shouldBreak;

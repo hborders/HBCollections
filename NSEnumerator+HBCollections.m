@@ -3,6 +3,29 @@
 
 @implementation NSEnumerator(HBCollections)
 
+- (NSEnumerator *) hb_enumeratorUsingBlock:(void (^)(id obj)) block {	
+	HBMapFilterOrBreakBlock plainMapFilterOrBreakBlock =
+		[[^(id obj, 
+			id *mappedObjPtr,
+			BOOL *shouldFilterPtr, 
+			BOOL *shouldBreakPtr) {
+			block(obj);
+			*mappedObjPtr = obj;
+			*shouldFilterPtr = YES;
+			*shouldBreakPtr = NO;
+		} copy] autorelease];
+	
+	if ([self isKindOfClass:[HBMapFilterOrBreakEnumerator class]]) {
+		HBMapFilterOrBreakEnumerator *selfMapFilterOrBreakEnumerator = (HBMapFilterOrBreakEnumerator *) self;
+		return [selfMapFilterOrBreakEnumerator hb_addMapFilterOrBreakBlock:plainMapFilterOrBreakBlock];
+	} else {
+		return [[[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:self
+																 andMapFilterOrBreakBlocks:[NSArray arrayWithObjects:
+																							plainMapFilterOrBreakBlock,
+																							nil]] autorelease];
+	}
+}
+
 - (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block {
 	HBMapFilterOrBreakBlock mapMapFilterOrBreakBlock =
 		[[^(id obj, 
@@ -67,6 +90,10 @@
 																							breakMapFilterOrBreakBlock,
 																							nil]] autorelease];
 	}
+}
+
+- (void) hb_enumerate {
+	for (id obj in self);
 }
 
 - (NSSet *) hb_allObjectsAsSet {

@@ -13,6 +13,7 @@
 		7B78DAFA13949AFC00943402 /* NSEnumeratorHBCollectionsConvenienceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAF913949AFC00943402 /* NSEnumeratorHBCollectionsConvenienceTest.m */; };
 		7B78DB4C1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB4A1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m */; };
 		7B78DB4D1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */; };
+		7B78DB7A1394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB791394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m */; };
 		7B7961A813614A61003DFC43 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
 		7B7961A913614A61003DFC43 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */; };
@@ -58,6 +59,7 @@
 		7B78DAF913949AFC00943402 /* NSEnumeratorHBCollectionsConvenienceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsConvenienceTest.m; sourceTree = "<group>"; };
 		7B78DB4A1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayHBCollectionsConvenienceTest.m; sourceTree = "<group>"; };
 		7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetHBCollectionsConvenienceTest.m; sourceTree = "<group>"; };
+		7B78DB791394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsEnumeratorTest.m; sourceTree = "<group>"; };
 		7B79617013614A0E003DFC43 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnit.framework; sourceTree = "<group>"; };
 		7B79617113614A0F003DFC43 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		7B7961A113614A46003DFC43 /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 				7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */,
 				7B8F65C41378F7F400A159FB /* NSEnumeratorHBCollectionsCallCountIntegrationTest.m */,
 				7B78DAF913949AFC00943402 /* NSEnumeratorHBCollectionsConvenienceTest.m */,
+				7B78DB791394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m */,
 				7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */,
 				7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */,
 				7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */,
@@ -239,6 +242,7 @@
 				7B78DAFA13949AFC00943402 /* NSEnumeratorHBCollectionsConvenienceTest.m in Sources */,
 				7B78DB4C1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m in Sources */,
 				7B78DB4D1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m in Sources */,
+				7B78DB7A1394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

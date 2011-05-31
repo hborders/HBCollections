@@ -1,9 +1,11 @@
 #import <Foundation/Foundation.h>
+#import "HBCollection.h"
 
-@interface NSEnumerator(HBCollections)
+@interface NSEnumerator(HBCollections)<HBCollection>
 
-- (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block;
-- (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
-- (NSEnumerator *) hb_breakEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
+- (NSSet *) hb_allObjectsAsSet;
+- (NSMutableSet *) hb_allObjectsAsMutableSet;
+
+- (NSMutableArray *) hb_allObjectsAsMutableArray;
 
 @end

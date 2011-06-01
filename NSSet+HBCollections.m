@@ -36,6 +36,16 @@
 	return breakMapFilterOrBreakEnumerator;
 }
 
+- (id) hb_reduceUsingBlock:(id (^)(id previousObj, id obj)) block 
+		   andInitialValue:(id) initialValue {
+	id previousObj = initialValue;
+	for (id obj in self) {
+		previousObj = block(previousObj, obj);
+	}
+	
+	return previousObj;
+}
+
 - (NSDictionary *) hb_allObjectsAsDictionaryByMappingKeysToValuesWithBlock:(id (^)(id keyObj)) block {
 	return [self hb_allObjectsAsMutableDictionaryByMappingKeysToValuesWithBlock:block];	
 }

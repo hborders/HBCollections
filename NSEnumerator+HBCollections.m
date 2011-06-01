@@ -92,6 +92,16 @@
 	}
 }
 
+- (id) hb_reduceUsingBlock:(id (^)(id previousObj, id obj)) block 
+		   andInitialValue:(id) initialValue {
+	id previousObj = initialValue;
+	for (id obj in self) {
+		previousObj = block(previousObj, obj);
+	}
+	
+	return previousObj;
+}
+
 - (void) hb_enumerate {
 	for (id obj in self);
 }

@@ -5,6 +5,9 @@
 - (NSEnumerator *) hb_filterEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
 - (NSEnumerator *) hb_breakEnumeratorUsingBlock:(BOOL (^)(id obj)) block;
 
+- (id) hb_reduceUsingBlock:(id (^)(id previousObj, id obj)) block 
+		   andInitialValue:(id) initialValue;
+
 - (NSDictionary *) hb_allObjectsAsDictionaryByMappingKeysToValuesWithBlock:(id (^)(id keyObj)) block;
 - (NSMutableDictionary *) hb_allObjectsAsMutableDictionaryByMappingKeysToValuesWithBlock:(id (^)(id keyObj)) block;
 

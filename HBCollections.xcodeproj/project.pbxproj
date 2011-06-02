@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B06E8EB13975D00000D2070 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		7B06E8F513975D22000D2070 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
+		7B06E8F613975D22000D2070 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B78DADE13948D7500943402 /* NSArray+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DADD13948D7500943402 /* NSArray+HBCollections.m */; };
 		7B78DAE21394911500943402 /* NSSet+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAE11394911500943402 /* NSSet+HBCollections.m */; };
 		7B78DAE51394981000943402 /* HBMapFilterOrBreakEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAE41394981000943402 /* HBMapFilterOrBreakEnumerator.m */; };
@@ -14,12 +17,8 @@
 		7B78DB4C1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB4A1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m */; };
 		7B78DB4D1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */; };
 		7B78DB7A1394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB791394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m */; };
-		7B7961A813614A61003DFC43 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
-		7B7961A913614A61003DFC43 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */; };
 		7B7961B013614A93003DFC43 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */; };
-		7B7961C213614CAB003DFC43 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
-		7B7961C313614CAB003DFC43 /* OCMock.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B7B887813652FA70005D773 /* NSEnumerator+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */; };
 		7B8F65711378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */; };
 		7B8F65981378E9FF00A159FB /* HBCollectionsPerformanceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F65971378E9FF00A159FB /* HBCollectionsPerformanceTest.m */; };
@@ -33,23 +32,8 @@
 		7BC8E6FF13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7B7961B113614A93003DFC43 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7B7961C213614CAB003DFC43 /* GHUnit.framework in CopyFiles */,
-				7B7961C313614CAB003DFC43 /* OCMock.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		288AFF340F563D390085E73F /* HBCollections_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollections_Prefix.pch; sourceTree = "<group>"; };
 		7B78DADC13948D7500943402 /* NSArray+HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HBCollections.h"; sourceTree = "<group>"; };
 		7B78DADD13948D7500943402 /* NSArray+HBCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HBCollections.m"; sourceTree = "<group>"; };
 		7B78DADF13948E5000943402 /* HBCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollection.h; sourceTree = "<group>"; };
@@ -89,8 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7961A813614A61003DFC43 /* GHUnit.framework in Frameworks */,
-				7B7961A913614A61003DFC43 /* OCMock.framework in Frameworks */,
+				7B06E8EB13975D00000D2070 /* Foundation.framework in Frameworks */,
+				7B06E8F513975D22000D2070 /* GHUnit.framework in Frameworks */,
+				7B06E8F613975D22000D2070 /* OCMock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +87,6 @@
 			children = (
 				08FB779DFE84155DC02AAC07 /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				7BC7517913725C6900FF83E6 /* Resources */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				7BC7517813725C5200FF83E6 /* Test */,
 			);
@@ -122,15 +106,13 @@
 				7B78DAE01394911500943402 /* NSSet+HBCollections.h */,
 				7B78DAE11394911500943402 /* NSSet+HBCollections.m */,
 			);
-			name = Source;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		08FB779DFE84155DC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
-				7B79617013614A0E003DFC43 /* GHUnit.framework */,
-				7B79617113614A0F003DFC43 /* OCMock.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -146,8 +128,8 @@
 		7BC7517813725C5200FF83E6 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				7B79617013614A0E003DFC43 /* GHUnit.framework */,
 				7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */,
-				288AFF340F563D390085E73F /* HBCollections_Prefix.pch */,
 				7BC75106137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.h */,
 				7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */,
 				7B8F65971378E9FF00A159FB /* HBCollectionsPerformanceTest.m */,
@@ -166,16 +148,10 @@
 				7B9ABE3A1395E5C800C98CA2 /* NSEnumeratorHBCollectionsReduceTest.m */,
 				7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */,
 				7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */,
-			);
-			name = Test;
-			sourceTree = "<group>";
-		};
-		7BC7517913725C6900FF83E6 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
+				7B79617113614A0F003DFC43 /* OCMock.framework */,
 				7B7961A313614A46003DFC43 /* UnitTests-Info.plist */,
 			);
-			name = Resources;
+			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +161,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B7961A613614A46003DFC43 /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
-				7B7961B113614A93003DFC43 /* CopyFiles */,
 				7B79619E13614A46003DFC43 /* Sources */,
 				7B79619F13614A46003DFC43 /* Frameworks */,
 			);
@@ -294,6 +269,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Test\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -302,9 +278,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "UnitTests-Info.plist";
+				INFOPLIST_FILE = "Test/UnitTests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(SRCROOT)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(SRCROOT)/Test";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -325,15 +301,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Test\"",
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "UnitTests-Info.plist";
+				INFOPLIST_FILE = "Test/UnitTests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				LD_RUNPATH_SEARCH_PATHS = "$(SRCROOT)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(SRCROOT)/Test";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,

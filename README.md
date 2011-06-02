@@ -39,10 +39,12 @@ LGPL.
 [break]:http://example.com
 [break-filter]:http://example.com
 [break-filter-map]:http://example.com
+[break-filter-map-fast-enumeration]:http://example.com
 [break-filter-map-reduce]:http://example.com
 [break-filter-map-enumerate]:http://example.com
 [array-set-enumerator-share-block]:http://example.com
 [foundation-block-no-share]:http://example.com
+[reduce-array-to-dictionary]:http://example.com
 [enumerator-to-array]:http://developer.apple.com/library/mac/#documentation/cocoa/reference/foundation/Classes/NSEnumerator_Class/Reference/Reference.html#//apple_ref/occ/instm/NSEnumerator/allObjects
 [enumerator-to-mutable-array]:http://example.com
 [enumerator-to-set]:http://example.com

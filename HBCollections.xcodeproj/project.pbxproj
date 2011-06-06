@@ -10,6 +10,11 @@
 		7B06E8EB13975D00000D2070 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		7B06E8F513975D22000D2070 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
 		7B06E8F613975D22000D2070 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
+		7B3B4035139C0E5B00586070 /* HBEnumerateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4034139C0E5B00586070 /* HBEnumerateComparison.m */; };
+		7B3B4037139C124900586070 /* HBReduceComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4036139C124900586070 /* HBReduceComparison.m */; };
+		7B3B4041139C1B3100586070 /* HBBreakFilterMapComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */; };
+		7B3B4063139C89E600586070 /* HBConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4062139C89E600586070 /* HBConvenience.m */; };
+		7B3B4068139C90FD00586070 /* HBInteresting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4067139C90FD00586070 /* HBInteresting.m */; };
 		7B78DADE13948D7500943402 /* NSArray+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DADD13948D7500943402 /* NSArray+HBCollections.m */; };
 		7B78DAE21394911500943402 /* NSSet+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAE11394911500943402 /* NSSet+HBCollections.m */; };
 		7B78DAE51394981000943402 /* HBMapFilterOrBreakEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAE41394981000943402 /* HBMapFilterOrBreakEnumerator.m */; };
@@ -34,6 +39,11 @@
 
 /* Begin PBXFileReference section */
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		7B3B4034139C0E5B00586070 /* HBEnumerateComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBEnumerateComparison.m; sourceTree = "<group>"; };
+		7B3B4036139C124900586070 /* HBReduceComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBReduceComparison.m; sourceTree = "<group>"; };
+		7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBreakFilterMapComparison.m; sourceTree = "<group>"; };
+		7B3B4062139C89E600586070 /* HBConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBConvenience.m; sourceTree = "<group>"; };
+		7B3B4067139C90FD00586070 /* HBInteresting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBInteresting.m; sourceTree = "<group>"; };
 		7B78DADC13948D7500943402 /* NSArray+HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HBCollections.h"; sourceTree = "<group>"; };
 		7B78DADD13948D7500943402 /* NSArray+HBCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HBCollections.m"; sourceTree = "<group>"; };
 		7B78DADF13948E5000943402 /* HBCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollection.h; sourceTree = "<group>"; };
@@ -85,6 +95,7 @@
 		08FB7794FE84155DC02AAC07 /* «PROJECTNAME» */ = {
 			isa = PBXGroup;
 			children = (
+				7B3B4030139C0E0C00586070 /* Examples */,
 				08FB779DFE84155DC02AAC07 /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 				08FB7795FE84155DC02AAC07 /* Source */,
@@ -123,6 +134,18 @@
 				7B7961A113614A46003DFC43 /* UnitTests.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7B3B4030139C0E0C00586070 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				7B3B4034139C0E5B00586070 /* HBEnumerateComparison.m */,
+				7B3B4036139C124900586070 /* HBReduceComparison.m */,
+				7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */,
+				7B3B4062139C89E600586070 /* HBConvenience.m */,
+				7B3B4067139C90FD00586070 /* HBInteresting.m */,
+			);
+			path = Examples;
 			sourceTree = "<group>";
 		};
 		7BC7517813725C5200FF83E6 /* Test */ = {
@@ -222,6 +245,11 @@
 				7B78DB4D1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m in Sources */,
 				7B78DB7A1394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m in Sources */,
 				7B9ABE3B1395E5C800C98CA2 /* NSEnumeratorHBCollectionsReduceTest.m in Sources */,
+				7B3B4035139C0E5B00586070 /* HBEnumerateComparison.m in Sources */,
+				7B3B4037139C124900586070 /* HBReduceComparison.m in Sources */,
+				7B3B4041139C1B3100586070 /* HBBreakFilterMapComparison.m in Sources */,
+				7B3B4063139C89E600586070 /* HBConvenience.m in Sources */,
+				7B3B4068139C90FD00586070 /* HBInteresting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

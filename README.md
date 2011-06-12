@@ -27,7 +27,7 @@ There is a [protocol][HBCollection-h] in case you have your own data structure y
 
 License
 -------
-LGPL.
+[BSD 3-Clause][BSD-3]
 
 [javascript-array-iteration-methods]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array#Iteration_methods
 [mikeash]:https://github.com/mikeash
@@ -42,3 +42,4 @@ LGPL.
 [convenience]:https://github.com/hborders/HBCollections/blob/master/Examples/HBConvenience.m
 [HBCollection-h]:https://github.com/hborders/HBCollections/blob/master/Source/HBCollection.h
 [fast-enumeration]:http://developer.apple.com/library/mac/#documentation/cocoa/Conceptual/ObjectiveC/Chapters/ocFastEnumeration.html
+[BSD-3]:http://www.opensource.org/licenses/BSD-3-Clause

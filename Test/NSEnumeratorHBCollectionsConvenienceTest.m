@@ -35,7 +35,7 @@
 
 - (void) testEnumerateCallsBlockWithEachElementInOrder {
 	NSMutableArray *givenElements = [NSMutableArray array];
-	[[testObject hb_enumeratorUsingBlock:^(id obj) {
+	[[testObject hb_actionEnumeratorUsingBlock:^(id obj) {
 		[givenElements addObject:obj];
 	}] hb_enumerate];
 	

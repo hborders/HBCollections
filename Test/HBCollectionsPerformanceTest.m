@@ -46,7 +46,7 @@
 	pool = [[NSAutoreleasePool alloc] init];
 	NSMutableArray *hbCollectionsed = [NSMutableArray arrayWithCapacity:large];
 	NSDate *hbCollectionsStartDate = [NSDate date];
-	[[largeArray hb_enumeratorUsingBlock:^(id obj) {
+	[[largeArray hb_actionEnumeratorUsingBlock:^(id obj) {
 		[hbCollectionsed addObject:obj];
 	}] hb_enumerate];
 	NSTimeInterval hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];

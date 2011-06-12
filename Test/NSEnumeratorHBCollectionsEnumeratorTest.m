@@ -31,7 +31,7 @@
 }
 
 - (void) test_AllObjects_Are_Enumerated_In_Order {
-	NSEnumerator *testObject = [[testData objectEnumerator] hb_enumeratorUsingBlock:testBlock];
+	NSEnumerator *testObject = [[testData objectEnumerator] hb_actionEnumeratorUsingBlock:testBlock];
 	
 	NSArray *actual = [testObject allObjects];
 	
@@ -40,7 +40,7 @@
 }
 
 - (void) test_NextObject_Returns_Objects_In_Order {
-	NSEnumerator *testObject = [[testData objectEnumerator] hb_enumeratorUsingBlock:testBlock];
+	NSEnumerator *testObject = [[testData objectEnumerator] hb_actionEnumeratorUsingBlock:testBlock];
 	
 	NSMutableArray *actual = [NSMutableArray array];
 	for (id obj = [testObject nextObject]; obj; obj = [testObject nextObject]) {
@@ -52,7 +52,7 @@
 }
 
 - (void) test_FastEnumeration_Returns_Objects_In_Order {
-	NSEnumerator *testObject = [[testData objectEnumerator] hb_enumeratorUsingBlock:testBlock];
+	NSEnumerator *testObject = [[testData objectEnumerator] hb_actionEnumeratorUsingBlock:testBlock];
 	
 	NSMutableArray *actual = [NSMutableArray array];
 	for (id obj in testObject) {
@@ -64,7 +64,7 @@
 }
 
 - (void) test_FastEnumeration_Does_Not_Use_NextObject {
-	NSEnumerator *testObject = [[testData objectEnumerator] hb_enumeratorUsingBlock:testBlock];
+	NSEnumerator *testObject = [[testData objectEnumerator] hb_actionEnumeratorUsingBlock:testBlock];
 	
 	id partialMockTestObject = [OCMockObject partialMockForObject:testObject];
 	[[partialMockTestObject reject] nextObject];
@@ -90,7 +90,7 @@
 	}
 	
 	NSMutableArray *actualArray = [NSMutableArray arrayWithCapacity:largeCount];
-	NSEnumerator *testObject = [[largeMutableArray objectEnumerator] hb_enumeratorUsingBlock:testBlock];
+	NSEnumerator *testObject = [[largeMutableArray objectEnumerator] hb_actionEnumeratorUsingBlock:testBlock];
 	for (NSNumber *number in testObject) {
 		[actualArray addObject:number];
 	}

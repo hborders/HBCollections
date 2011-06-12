@@ -51,13 +51,13 @@ void enuemrateWithHBCollections() {
 	};
 	
 	NSArray *array = [NSArray arrayWithObjects:@"0", @"1", @"2", nil];
-	[[array hb_enumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
+	[[array hb_actionEnumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
 	
 	NSSet *set = [NSSet setWithObjects:@"0", @"1", @"2", nil];
-	[[set hb_enumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
+	[[set hb_actionEnumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
 	
 	// we can even use the block on random enumerations.
 	
 	NSEnumerator *enumerator = [array objectEnumerator]; // this could have come from anywhere
-	[[enumerator hb_enumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
+	[[enumerator hb_actionEnumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
 }

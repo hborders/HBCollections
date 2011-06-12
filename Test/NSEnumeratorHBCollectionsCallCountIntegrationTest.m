@@ -56,13 +56,13 @@
 - (void) test_Enumerate_Block_Not_Called_After_Preceding_Filter_NO {
 	[[[testEnumerator hb_filterEnumeratorUsingBlock:^(id obj) {
 		return NO;
-	}] hb_enumeratorUsingBlock:enumerateBlock] hb_enumerate];
+	}] hb_actionEnumeratorUsingBlock:enumerateBlock] hb_enumerate];
 	
 	GHAssertEquals(enumerateCount, (NSUInteger) 0, nil);
 }
 
 - (void) test_Enumerate_Block_Not_Called_After_Succeeding_Break_YES {
-	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock] hb_breakEnumeratorUsingBlock:^(id obj) {
+	[[[testEnumerator hb_actionEnumeratorUsingBlock:enumerateBlock] hb_breakEnumeratorUsingBlock:^(id obj) {
 		return YES;
 	}] hb_enumerate];
 	
@@ -72,7 +72,7 @@
 - (void) test_Enumerate_Block_Not_Called_After_Preceding_Break_YES {
 	[[[testEnumerator hb_breakEnumeratorUsingBlock:^(id obj) {
 		return YES;
-	}] hb_enumeratorUsingBlock:enumerateBlock] hb_enumerate];
+	}] hb_actionEnumeratorUsingBlock:enumerateBlock] hb_enumerate];
 	
 	GHAssertEquals(enumerateCount, (NSUInteger) 0, nil);
 }

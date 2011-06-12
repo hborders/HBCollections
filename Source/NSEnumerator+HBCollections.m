@@ -3,7 +3,7 @@
 
 @implementation NSEnumerator(HBCollections)
 
-- (NSEnumerator *) hb_enumeratorUsingBlock:(void (^)(id obj)) block {	
+- (NSEnumerator *) hb_actionEnumeratorUsingBlock:(void (^)(id obj)) block {	
 	HBMapFilterOrBreakBlock plainMapFilterOrBreakBlock =
 		[[^(id obj, 
 			id *mappedObjPtr,

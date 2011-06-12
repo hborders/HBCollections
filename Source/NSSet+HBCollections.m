@@ -4,12 +4,12 @@
 
 @implementation NSSet(HBCollections)
 
-- (NSEnumerator *) hb_enumeratorUsingBlock:(void (^)(id obj)) block {
-	HBMapFilterOrBreakEnumerator *plainMapFilterOrBreakEnumerator =
-		(HBMapFilterOrBreakEnumerator *) [[self objectEnumerator] hb_enumeratorUsingBlock:block];
-	plainMapFilterOrBreakEnumerator.hb_allObjectsSizeHint = [self count];
+- (NSEnumerator *) hb_actionEnumeratorUsingBlock:(void (^)(id obj)) block {
+	HBMapFilterOrBreakEnumerator *actionMapFilterOrBreakEnumerator =
+		(HBMapFilterOrBreakEnumerator *) [[self objectEnumerator] hb_actionEnumeratorUsingBlock:block];
+	actionMapFilterOrBreakEnumerator.hb_allObjectsSizeHint = [self count];
 	
-	return plainMapFilterOrBreakEnumerator;
+	return actionMapFilterOrBreakEnumerator;
 }
 
 - (NSEnumerator *) hb_mapEnumeratorUsingBlock:(id (^)(id obj)) block {

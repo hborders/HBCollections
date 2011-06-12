@@ -83,32 +83,32 @@
 	lastBreakBlock2Obj = nil;
 }
 
-- (void) test_Enumerate_Gets_Value_From_Preceding_Enumerate {
-	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+- (void) test_Action_Gets_Value_From_Preceding_Action {
+	[[[testEnumerator hb_actionEnumeratorUsingBlock:enumerateBlock1] hb_actionEnumeratorUsingBlock:enumerateBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastEnumerateBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Enumerate_Gets_Value_From_Preceding_Map {
-	[[[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+- (void) test_Action_Gets_Value_From_Preceding_Map {
+	[[[testEnumerator hb_mapEnumeratorUsingBlock:mapBlock1] hb_actionEnumeratorUsingBlock:enumerateBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastEnumerateBlock2Obj, mappedValue, nil);
 }
 
-- (void) test_Enumerate_Gets_Value_From_Preceding_Filter {
-	[[[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+- (void) test_Action_Gets_Value_From_Preceding_Filter {
+	[[[testEnumerator hb_filterEnumeratorUsingBlock:filterBlock1] hb_actionEnumeratorUsingBlock:enumerateBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastEnumerateBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Enumerate_Gets_Value_From_Preceding_Break {
-	[[[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_enumeratorUsingBlock:enumerateBlock2] hb_enumerate];
+- (void) test_Action_Gets_Value_From_Preceding_Break {
+	[[[testEnumerator hb_breakEnumeratorUsingBlock:breakBlock1] hb_actionEnumeratorUsingBlock:enumerateBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastEnumerateBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Map_Gets_Value_From_Preceding_Enumerate {
-	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_mapEnumeratorUsingBlock:mapBlock2] hb_enumerate];
+- (void) test_Map_Gets_Value_From_Preceding_Action {
+	[[[testEnumerator hb_actionEnumeratorUsingBlock:enumerateBlock1] hb_mapEnumeratorUsingBlock:mapBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
 }
@@ -131,8 +131,8 @@
 	GHAssertEqualObjects(lastMapBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Filter_Gets_Value_From_Preceding_Enumerate {
-	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_filterEnumeratorUsingBlock:filterBlock2] hb_enumerate];
+- (void) test_Filter_Gets_Value_From_Preceding_Action {
+	[[[testEnumerator hb_actionEnumeratorUsingBlock:enumerateBlock1] hb_filterEnumeratorUsingBlock:filterBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastFilterBlock2Obj, originalValue, nil);
 }
@@ -155,8 +155,8 @@
 	GHAssertEqualObjects(lastFilterBlock2Obj, originalValue, nil);
 }
 
-- (void) test_Break_Gets_Value_From_Preceding_Enumerate {
-	[[[testEnumerator hb_enumeratorUsingBlock:enumerateBlock1] hb_breakEnumeratorUsingBlock:breakBlock2] hb_enumerate];
+- (void) test_Break_Gets_Value_From_Preceding_Action {
+	[[[testEnumerator hb_actionEnumeratorUsingBlock:enumerateBlock1] hb_breakEnumeratorUsingBlock:breakBlock2] hb_enumerate];
 	
 	GHAssertEqualObjects(lastBreakBlock2Obj, originalValue, nil);
 }

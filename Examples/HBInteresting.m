@@ -6,8 +6,7 @@
 
 @interface HBExampleUIntegerEnumerator : NSEnumerator
 
-- (id) initWithStart: (NSUInteger) start
-	 andExclusiveEnd: (NSUInteger) exclusiveEnd;
+- (id) initWithStart: (NSUInteger) start;
 
 @end
 
@@ -21,18 +20,10 @@
 
 @synthesize index = _index;
 
-- (id) initWithStart: (NSUInteger) start
-	 andExclusiveEnd: (NSUInteger) exclusiveEnd {
+- (id) initWithStart: (NSUInteger) start {
 	self = [super init];
 	if (self) {
 		_index = start;
-		
-		NSEnumerator *endedEnumerator = [self hb_breakEnumeratorUsingBlock:^(id obj) {
-			NSNumber *number = obj;
-			return (BOOL) ([number unsignedIntegerValue] >= exclusiveEnd);
-		}];
-		[self release];
-		return [endedEnumerator retain];
 	}
 	
 	return self;
@@ -50,14 +41,16 @@
 @end
 
 NSNumber *factorial(NSUInteger n) {
-	NSEnumerator *numberEnumerator = [[[HBExampleUIntegerEnumerator alloc] initWithStart:1 
-																		 andExclusiveEnd:n + 1] autorelease];
-	return [numberEnumerator hb_reduceUsingBlock:^(id previousObj, id obj) {
+	NSEnumerator *numberEnumerator = [[[HBExampleUIntegerEnumerator alloc] initWithStart:1] autorelease];
+	return [[numberEnumerator hb_breakEnumeratorUsingBlock:^(id obj) {
+		NSNumber *number = obj;
+		return (BOOL) ([number unsignedIntegerValue] <= n);
+	}] hb_reduceUsingBlock:^(id previousObj, id obj) {
 		NSNumber *previousFactorial = previousObj;
 		NSNumber *number = obj;
 		return (id) [NSNumber numberWithUnsignedInteger:[previousFactorial unsignedIntegerValue] * [number unsignedIntegerValue]];
 	}
-								 andInitialValue:[NSNumber numberWithUnsignedInteger:1]];
+			andInitialValue:[NSNumber numberWithUnsignedInteger:1]];
 }
 
 NSNumber *fibonacci(NSUInteger n) {
@@ -65,9 +58,11 @@ NSNumber *fibonacci(NSUInteger n) {
 		return [NSNumber numberWithInt:0];
 	}
 	
-	NSEnumerator *numberEnumerator = [[[HBExampleUIntegerEnumerator alloc] initWithStart:1
-																		 andExclusiveEnd:n + 1] autorelease];
-	return [[numberEnumerator hb_reduceUsingBlock:^(id previousObj, id obj) {
+	NSEnumerator *numberEnumerator = [[[HBExampleUIntegerEnumerator alloc] initWithStart:1] autorelease];
+	return [[[numberEnumerator hb_breakEnumeratorUsingBlock:^(id obj) {
+		NSNumber *number = obj;
+		return (BOOL) ([number unsignedIntegerValue] <= n);
+	}] hb_reduceUsingBlock:^(id previousObj, id obj) {
 		NSMutableArray *lastTwoFibs = previousObj;
 		NSNumber *secondToLastFib = [lastTwoFibs objectAtIndex:0];
 		NSNumber *lastFib = [lastTwoFibs objectAtIndex:1];
@@ -76,8 +71,8 @@ NSNumber *fibonacci(NSUInteger n) {
 		[lastTwoFibs replaceObjectAtIndex:1 withObject:nextFib];
 		return (id) lastTwoFibs;
 	}
-								  andInitialValue:[NSMutableArray arrayWithObjects:
-												   [NSNumber numberWithUnsignedInteger:0],
-												   [NSNumber numberWithUnsignedInteger:1],
-												   nil]] lastObject];
+			 andInitialValue:[NSMutableArray arrayWithObjects:
+							  [NSNumber numberWithUnsignedInteger:0],
+							  [NSNumber numberWithUnsignedInteger:1],
+							  nil]] lastObject];
 }

@@ -1,6 +1,4 @@
-#import "NSArray+HBCollections.h"
-#import "NSSet+HBCollections.h"
-#import "NSEnumerator+HBCollections.h"
+#import "HBCollections.h"
 
 void enumerateWithForLoop() {
 	

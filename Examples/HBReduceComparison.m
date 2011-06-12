@@ -1,4 +1,4 @@
-#import "NSArray+HBCollections.h"
+#import "HBCollections.h"
 
 void reduceWithForLoop() {
 	/*

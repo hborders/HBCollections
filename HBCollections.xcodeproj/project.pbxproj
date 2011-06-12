@@ -15,7 +15,7 @@
 		7B3B4041139C1B3100586070 /* HBBreakFilterMapComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */; };
 		7B3B4063139C89E600586070 /* HBConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4062139C89E600586070 /* HBConvenience.m */; };
 		7B3B4068139C90FD00586070 /* HBInteresting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4067139C90FD00586070 /* HBInteresting.m */; };
-		7B57402013A48A1900544D47 /* HBBreakFilterMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B57401F13A48A1900544D47 /* HBBreakFilterMap.m */; };
+		7B57402013A48A1900544D47 /* HBBreakFilterMapSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B57401F13A48A1900544D47 /* HBBreakFilterMapSimple.m */; };
 		7B78DADE13948D7500943402 /* NSArray+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DADD13948D7500943402 /* NSArray+HBCollections.m */; };
 		7B78DAE21394911500943402 /* NSSet+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAE11394911500943402 /* NSSet+HBCollections.m */; };
 		7B78DAE51394981000943402 /* HBMapFilterOrBreakEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DAE41394981000943402 /* HBMapFilterOrBreakEnumerator.m */; };
@@ -45,7 +45,8 @@
 		7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBreakFilterMapComparison.m; sourceTree = "<group>"; };
 		7B3B4062139C89E600586070 /* HBConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBConvenience.m; sourceTree = "<group>"; };
 		7B3B4067139C90FD00586070 /* HBInteresting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBInteresting.m; sourceTree = "<group>"; };
-		7B57401F13A48A1900544D47 /* HBBreakFilterMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBreakFilterMap.m; sourceTree = "<group>"; };
+		7B57401F13A48A1900544D47 /* HBBreakFilterMapSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBBreakFilterMapSimple.m; sourceTree = "<group>"; };
+		7B57407913A4958300544D47 /* HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollections.h; sourceTree = "<group>"; };
 		7B78DADC13948D7500943402 /* NSArray+HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HBCollections.h"; sourceTree = "<group>"; };
 		7B78DADD13948D7500943402 /* NSArray+HBCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HBCollections.m"; sourceTree = "<group>"; };
 		7B78DADF13948E5000943402 /* HBCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollection.h; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				7B78DADF13948E5000943402 /* HBCollection.h */,
+				7B57407913A4958300544D47 /* HBCollections.h */,
 				7B78DAE31394981000943402 /* HBMapFilterOrBreakEnumerator.h */,
 				7B78DAE41394981000943402 /* HBMapFilterOrBreakEnumerator.m */,
 				7B78DADC13948D7500943402 /* NSArray+HBCollections.h */,
@@ -141,12 +143,12 @@
 		7B3B4030139C0E0C00586070 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				7B3B4034139C0E5B00586070 /* HBEnumerateComparison.m */,
-				7B3B4036139C124900586070 /* HBReduceComparison.m */,
 				7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */,
+				7B57401F13A48A1900544D47 /* HBBreakFilterMapSimple.m */,
 				7B3B4062139C89E600586070 /* HBConvenience.m */,
+				7B3B4034139C0E5B00586070 /* HBEnumerateComparison.m */,
 				7B3B4067139C90FD00586070 /* HBInteresting.m */,
-				7B57401F13A48A1900544D47 /* HBBreakFilterMap.m */,
+				7B3B4036139C124900586070 /* HBReduceComparison.m */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -253,7 +255,7 @@
 				7B3B4041139C1B3100586070 /* HBBreakFilterMapComparison.m in Sources */,
 				7B3B4063139C89E600586070 /* HBConvenience.m in Sources */,
 				7B3B4068139C90FD00586070 /* HBInteresting.m in Sources */,
-				7B57402013A48A1900544D47 /* HBBreakFilterMap.m in Sources */,
+				7B57402013A48A1900544D47 /* HBBreakFilterMapSimple.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

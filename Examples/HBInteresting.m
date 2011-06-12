@@ -1,4 +1,4 @@
-#import "NSEnumerator+HBCollections.h"
+#import "HBCollections.h"
 
 /*
  * These aren't strictly the simplest solutions to the problem, but are examples of interesting ways to solve them.

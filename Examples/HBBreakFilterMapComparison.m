@@ -1,5 +1,4 @@
-#import "NSArray+HBCollections.h"
-#import "NSEnumerator+HBCollections.h"
+#import "HBCollections.h"
 
 /*
  * Assume we have a command line function that converts single-number strings to english words,

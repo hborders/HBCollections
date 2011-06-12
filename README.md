@@ -8,18 +8,18 @@ Your loop bodies and if predicates become reusable blocks, fine-grained code reu
 
 Simple Examples
 ---------------
-Instead of [iterating your array with a for loop][iterating-array-for], you can [enumerate your array][enumerate-array].
-Instead of [totalling your array with a for loop][totalling-array-for], you can [reduce your array to a total][reduce-array-total].
+Instead of iterating your array with a for loop, you can [enumerate your array][enumerate-array].
+Instead of totalling your array with a for loop, you can [reduce your array to a total][reduce-array-total].
 
 Compatibility
 -------------
-Most methods return chainable `NSEnumerator`s, so you can [break][], then [filter][break-filter], then [map][break-filter-map], and still use a [fast enumeration for loop][break-filter-map-fast-enumeration] (of course, you could always just [reduce][break-filter-map-reduce] or [enumerate][break-filter-map-enumerate] it).
-Arrays, sets, and enumerators use the same API, [so your blocks can interoperate][array-set-enumerator-share-block] (unlike [foundation block enumeration][foundation-block-no-share]).
+Most methods return chainable `NSEnumerator`s, so you can [map, then add filtering, then add breaking, and still use a fast enumeration for loop (of course, you could always just reduce or enumerate it)][break-filter-map-enumerate-simple]. ([A more complex example][break-filter-map-enumerate]).
+Arrays, sets, and enumerators use the same API, [so your blocks can interoperate, unlike foundation block enumeration)][share-blocks].
 
 Convenience
 -----------
 Although you can easily [reduce an array to a dictionary][reduce-array-to-dictionary], there is a convenience method to do it for you.
-Foundation APIs allow you to [convert an enumerator to an array][enumerator-to-array], but there are convenience methods to convert to a [mutable array][enumerator-to-mutable-array], [set][enumerator-to-mutable-set], and [mutable set][enumerator-to-mutable-set].
+Foundation APIs allow you to [convert an enumerator to an array][enumerator-to-array], but HBCollections gives you convenience methods to convert to a [mutable array, set, and mutable set][convenience].
 
 Implementation
 --------------
@@ -32,22 +32,13 @@ LGPL.
 [javascript-array-iteration-methods]:https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array#Iteration_methods
 [mikeash]:https://github.com/mikeash
 [implementing-fast-enumeration-qa]:http://www.mikeash.com/pyblog/friday-qa-2010-04-16-implementing-fast-enumeration.html
-[iterating-array-for]:http://example.com
-[enumerate-array]:http://example.com
-[totalling-array-for]:http://example.com
-[reduce-array-total]:http://example.com
-[break]:http://example.com
-[break-filter]:http://example.com
-[break-filter-map]:http://example.com
-[break-filter-map-fast-enumeration]:http://example.com
-[break-filter-map-reduce]:http://example.com
-[break-filter-map-enumerate]:http://example.com
-[array-set-enumerator-share-block]:http://example.com
-[foundation-block-no-share]:http://example.com
-[reduce-array-to-dictionary]:http://example.com
+[enumerate-array]:https://github.com/hborders/HBCollections/blob/master/Examples/HBEnumerateComparison.m
+[reduce-array-total]:https://github.com/hborders/HBCollections/blob/master/Examples/HBReduceComparison.m
+[break-filter-map-enumerate-simple]:https://github.com/hborders/HBCollections/blob/master/Examples/HBBreakFilterMapSimple.m
+[break-filter-map-enumerate]:https://github.com/hborders/HBCollections/blob/master/Examples/HBBreakFilterMapComparison.m
+[share-block]:https://github.com/hborders/HBCollections/blob/master/Examples/HBEnumerateComparison.m
+[reduce-array-to-dictionary]:https://github.com/hborders/HBCollections/blob/master/Examples/HBReduceComparison.m
 [enumerator-to-array]:http://developer.apple.com/library/mac/#documentation/cocoa/reference/foundation/Classes/NSEnumerator_Class/Reference/Reference.html#//apple_ref/occ/instm/NSEnumerator/allObjects
-[enumerator-to-mutable-array]:http://example.com
-[enumerator-to-set]:http://example.com
-[enumerator-to-mutable-set]:http://example.com
-[HBCollection-h]:http://example.com
+[convenience]:https://github.com/hborders/HBCollections/blob/master/Examples/HBConvenience.m
+[HBCollection-h]:https://github.com/hborders/HBCollections/blob/master/Source/HBCollection.h
 [fast-enumeration]:http://developer.apple.com/library/mac/#documentation/cocoa/Conceptual/ObjectiveC/Chapters/ocFastEnumeration.html

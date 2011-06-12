@@ -1,5 +1,5 @@
 #import "NSArray+HBCollections.h"
-#import "NSEnumerator+HBCollections.h"
+#import "HBCollections.h"
 
 void map() {
 	NSArray *strings = [NSArray arrayWithObjects:
@@ -96,7 +96,7 @@ void breakFilterMapFastEnumeration() {
 	}
 }
 
-void breakFilterMapEnumerate() {
+void breakFilterMapAction() {
 	NSArray *strings = [NSArray arrayWithObjects:
 						@"",
 						@"0",
@@ -113,7 +113,7 @@ void breakFilterMapEnumerate() {
 	}] hb_mapEnumeratorUsingBlock:^(id obj) {
 		NSString *string = obj;
 		return (id) [NSNumber numberWithInt:[string intValue]];
-	}] hb_enumeratorUsingBlock:^(id obj) {
+	}] hb_actionEnumeratorUsingBlock:^(id obj) {
 		NSNumber *number = obj;
 		NSLog(@"%@", number);
 	}];
@@ -121,4 +121,27 @@ void breakFilterMapEnumerate() {
 	for (NSNumber *number in alreadyLoggedNumbers) {
 		NSLog(@"We logged %@ already, doing it a second time.", number);
 	}
+}
+
+void breakFilterMapActionEnumerate() {
+	NSArray *strings = [NSArray arrayWithObjects:
+						@"",
+						@"0",
+						@"1",
+						@"STOP HERE!!!!",
+						@"2",
+						nil];
+	[[[[[strings hb_breakEnumeratorUsingBlock:^(id obj) {
+		NSString *string = obj;
+		return [@"STOP HERE!!!!" isEqualToString:string];
+	}] hb_filterEnumeratorUsingBlock:^(id obj) {
+		NSString *string = obj;
+		return (BOOL) ([string length] > 0);
+	}] hb_mapEnumeratorUsingBlock:^(id obj) {
+		NSString *string = obj;
+		return (id) [NSNumber numberWithInt:[string intValue]];
+	}] hb_actionEnumeratorUsingBlock:^(id obj) {
+		NSNumber *number = obj;
+		NSLog(@"%@", number);
+	}] hb_enumerate]; // we performed the enumerating in-line.
 }

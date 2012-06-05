@@ -29,13 +29,13 @@ void reduceWithForLoop() {
 	for (NSNumber *number in array) {
 		total += [number integerValue];
 	}
-	NSLog(@"My total: %d", total);
+	NSLog(@"My total: %ld", total);
 	
 	NSInteger minimum = NSIntegerMax;
 	for (NSNumber *number in array) {
 		minimum = MIN(minimum, [number integerValue]);
 	}
-	NSLog(@"My minimum: %d", minimum);
+	NSLog(@"My minimum: %ld", minimum);
 }
 
 void reduceWithFoundation() {
@@ -54,14 +54,14 @@ void reduceWithFoundation() {
 		NSNumber *number = obj;
 		total += [number integerValue];
 	}];
-	NSLog(@"My total: %d", total);
+	NSLog(@"My total: %ld", total);
 	
 	__block NSInteger minimum = NSIntegerMax;
 	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSNumber *number = obj;
 		minimum = MIN(minimum, [number integerValue]);
 	}];
-	NSLog(@"My minimum: %d", minimum);
+	NSLog(@"My minimum: %ld", minimum);
 }
 
 void reduceWithHBCollections() {

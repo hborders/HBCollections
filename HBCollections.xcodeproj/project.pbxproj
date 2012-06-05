@@ -36,6 +36,7 @@
 		7BC7510A1372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */; };
 		7BC7510C1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */; };
 		7BC8E6FF13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */; };
+		7BE12F10157DC15000CA578E /* HBReduceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE12F0F157DC14F00CA578E /* HBReduceEnumerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,8 @@
 		7BC751091372595200FF83E6 /* HBCollectionsTestCaseEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsTestCaseEnumeratorTest.m; sourceTree = "<group>"; };
 		7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsFilterEnumeratorTest.m; sourceTree = "<group>"; };
 		7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsValuePassingIntegrationTest.m; sourceTree = "<group>"; };
+		7BE12F0E157DC14F00CA578E /* HBReduceEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBReduceEnumerator.h; sourceTree = "<group>"; };
+		7BE12F0F157DC14F00CA578E /* HBReduceEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBReduceEnumerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 				7B57407913A4958300544D47 /* HBCollections.h */,
 				7B78DAE31394981000943402 /* HBMapFilterOrBreakEnumerator.h */,
 				7B78DAE41394981000943402 /* HBMapFilterOrBreakEnumerator.m */,
+				7BE12F0E157DC14F00CA578E /* HBReduceEnumerator.h */,
+				7BE12F0F157DC14F00CA578E /* HBReduceEnumerator.m */,
 				7B78DADC13948D7500943402 /* NSArray+HBCollections.h */,
 				7B78DADD13948D7500943402 /* NSArray+HBCollections.m */,
 				7B7B887613652FA70005D773 /* NSEnumerator+HBCollections.h */,
@@ -263,6 +268,7 @@
 				7B3B4063139C89E600586070 /* HBConvenience.m in Sources */,
 				7B3B4068139C90FD00586070 /* HBInteresting.m in Sources */,
 				7B57402013A48A1900544D47 /* HBBreakFilterMapSimple.m in Sources */,
+				7BE12F10157DC15000CA578E /* HBReduceEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

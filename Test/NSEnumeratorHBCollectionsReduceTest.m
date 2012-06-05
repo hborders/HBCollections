@@ -110,7 +110,7 @@
 - (void) test_Reduce_Enumerates_Set_With_InitialValue_As_First_PreviousObj {
 	NSSet *testObject = [NSSet setWithArray:testData];
 	
-	__block id firstPreviousObj;
+	__block id firstPreviousObj = nil;
 	NSNumber *actual = [testObject hb_reduceUsingBlock:^(id previousObj, id obj) {
 		if (!firstPreviousObj) {
 			firstPreviousObj = previousObj;

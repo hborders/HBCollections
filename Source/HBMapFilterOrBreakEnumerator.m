@@ -21,17 +21,18 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 						BOOL *shouldFilterPtr, 
 						BOOL *shouldBreakPtr);
 
-@interface HBMapFilterOrBreakEnumerator()
+@interface HBMapFilterOrBreakEnumerator() {
+    @private
+    NSEnumerator *_mapFilterOrBreakeeEnumerator;
+    NSArray *_mapFilterOrBreakBlocks;
+    id *_mapFilterOrBreakBlocksPtr;
+    NSUInteger _mapFilterOrBreakBlocksCount;
 
-@property (nonatomic, retain) NSEnumerator *mapFilterOrBreakeeEnumerator;
-@property (nonatomic, retain) NSArray *mapFilterOrBreakBlocks;
-@property (nonatomic) id *mapFilterOrBreakBlocksPtr;
-@property (nonatomic) NSUInteger mapFilterOrBreakBlocksCount;
-
-@property (nonatomic) id *mapFilterOrBreakeeItemsPtr;
-@property (nonatomic) NSUInteger mapFilterOrBreakeeItemsIndex;
-@property (nonatomic) NSUInteger mapFilterOrBreakeeItemsCount;
-@property (nonatomic) BOOL mapFilterOrBreakItemsBroken;
+    id *_mapFilterOrBreakeeItemsPtr;
+    NSUInteger _mapFilterOrBreakeeItemsIndex;
+    NSUInteger _mapFilterOrBreakeeItemsCount;
+    BOOL _mapFilterOrBreakItemsBroken;
+}
 
 - (id) initWithMapFilterOrBreakeeEnumerator: (NSEnumerator *) mapFilterOrBreakeeEnumerator
 				  andMapFilterOrBreakBlocks: (NSArray *) mapFilterOrBreakBlocks
@@ -42,16 +43,7 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 
 @implementation HBMapFilterOrBreakEnumerator
 
-@synthesize mapFilterOrBreakeeEnumerator = _mapFilterOrBreakeeEnumerator;
-@synthesize mapFilterOrBreakBlocks = _mapFilterOrBreakBlocks;
-@synthesize mapFilterOrBreakBlocksPtr = _mapFilterOrBreakBlocksPtr;
-@synthesize mapFilterOrBreakBlocksCount = _mapFilterOrBreakBlocksCount;
 @synthesize hb_allObjectsSizeHint = _hb_allObjectsSizeHint;
-
-@synthesize mapFilterOrBreakeeItemsPtr = _mapFilterOrBreakeeItemsPtr;
-@synthesize mapFilterOrBreakeeItemsIndex = _mapFilterOrBreakeeItemsIndex;
-@synthesize mapFilterOrBreakeeItemsCount = _mapFilterOrBreakeeItemsCount;
-@synthesize mapFilterOrBreakItemsBroken = _mapFilterOrBreakItemsBroken;
 
 - (id) initWithMapFilterOrBreakeeEnumerator: (NSEnumerator *) mapFilterOrBreakeeEnumerator
 				  andMapFilterOrBreakBlocks: (NSArray *) mapFilterOrBreakBlocks {

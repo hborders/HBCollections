@@ -36,7 +36,7 @@
 
 - (void) test_StackBufEnumerator_FastEnumeration_Is_Normal {
 	HBCollectionsStackBufEnumerator *testObject = 
-	[[[HBCollectionsStackBufEnumerator alloc] initWithTestCase:self] autorelease];
+	[[HBCollectionsStackBufEnumerator alloc] initWithTestCase:self];
 	testObject.elements = testData;
 	
 	NSMutableArray *actualData = [NSMutableArray array];
@@ -49,7 +49,7 @@
 
 - (void) test_ItemsPtrEnumerator_FastEnumeration_Is_Normal {
 	HBCollectionsItemsPtrEnumerator *testObject =
-	[[[HBCollectionsItemsPtrEnumerator alloc] initWithTestCase:self] autorelease];
+	[[HBCollectionsItemsPtrEnumerator alloc] initWithTestCase:self];
 	testObject.elementsFactoryBlock = ^(NSUInteger stackBufLen) {
 		return testData;
 	};

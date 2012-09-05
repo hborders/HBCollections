@@ -38,7 +38,7 @@
 - (void) setUp {
 	[super setUp];
 	
-	testEnumerator = [[[HBCollectionsStackBufEnumerator alloc] init] autorelease];
+	testEnumerator = [[HBCollectionsStackBufEnumerator alloc] init];
 	testEnumerator.elements = [NSArray arrayWithObjects:
 							   @"1",
 							   @"2",
@@ -50,21 +50,21 @@
 	filterCount = 0;
 	breakCount = 0;
 	
-	enumerateBlock = [[^(id obj) {
+	enumerateBlock = [^(id obj) {
 		enumerateCount++;
-	} copy] autorelease];
-	mapBlock = [[^(id obj) {
+	} copy];
+	mapBlock = [^(id obj) {
 		mapCount++;
 		return obj;
-	} copy] autorelease];
-	filterBlock = [[^(id obj) {
+	} copy];
+	filterBlock = [^(id obj) {
 		filterCount++;
 		return YES;
-	} copy] autorelease];
-	breakBlock = [[^(id obj) {
+	} copy];
+	breakBlock = [^(id obj) {
 		breakCount++;
 		return NO;
-	} copy] autorelease];
+	} copy];
 }
 
 - (void) test_Enumerate_Block_Not_Called_After_Preceding_Filter_NO {

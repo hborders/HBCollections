@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7B06E8EB13975D00000D2070 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
-		7B06E8F513975D22000D2070 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617013614A0E003DFC43 /* GHUnit.framework */; };
-		7B06E8F613975D22000D2070 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B79617113614A0F003DFC43 /* OCMock.framework */; };
 		7B3B4035139C0E5B00586070 /* HBEnumerateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4034139C0E5B00586070 /* HBEnumerateComparison.m */; };
 		7B3B4037139C124900586070 /* HBReduceComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4036139C124900586070 /* HBReduceComparison.m */; };
 		7B3B4041139C1B3100586070 /* HBBreakFilterMapComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3B4040139C1B3100586070 /* HBBreakFilterMapComparison.m */; };
@@ -24,12 +22,14 @@
 		7B78DB4D1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */; };
 		7B78DB7A1394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DB791394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m */; };
 		7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */; };
-		7B7961B013614A93003DFC43 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */; };
 		7B7B887813652FA70005D773 /* NSEnumerator+HBCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */; };
 		7B8F65711378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */; };
 		7B8F65981378E9FF00A159FB /* HBCollectionsPerformanceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F65971378E9FF00A159FB /* HBCollectionsPerformanceTest.m */; };
 		7B8F65C51378F7F400A159FB /* NSEnumeratorHBCollectionsCallCountIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F65C41378F7F400A159FB /* NSEnumeratorHBCollectionsCallCountIntegrationTest.m */; };
 		7B9ABE3B1395E5C800C98CA2 /* NSEnumeratorHBCollectionsReduceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9ABE3A1395E5C800C98CA2 /* NSEnumeratorHBCollectionsReduceTest.m */; };
+		7BC3DE7915F71167005A0227 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC3DE7415F71158005A0227 /* GHUnit.framework */; };
+		7BC3DE7C15F711A4005A0227 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC3DE7B15F711A4005A0227 /* GHUnitTestMain.m */; };
+		7BC3DE7E15F7123F005A0227 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BC3DE7D15F7123F005A0227 /* OCMock.framework */; };
 		7BC751021372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */; };
 		7BC751051372581700FF83E6 /* HBCollectionsStackBufEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC751041372581700FF83E6 /* HBCollectionsStackBufEnumerator.m */; };
 		7BC75108137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */; };
@@ -37,6 +37,30 @@
 		7BC7510C1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7510B1372598200FF83E6 /* NSEnumeratorHBCollectionsFilterEnumeratorTest.m */; };
 		7BC8E6FF13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7BC3DE7315F71158005A0227 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC3DE6A15F71157005A0227 /* GHUnitMacOSX.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0083D08613BCFDDB00F71F21;
+			remoteInfo = GHUnit;
+		};
+		7BC3DE7515F71158005A0227 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC3DE6A15F71157005A0227 /* GHUnitMacOSX.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0083D13213BCFFA400F71F21;
+			remoteInfo = Tests;
+		};
+		7BC3DE7715F71161005A0227 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BC3DE6A15F71157005A0227 /* GHUnitMacOSX.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0083D08513BCFDDB00F71F21;
+			remoteInfo = GHUnit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -60,18 +84,18 @@
 		7B78DB4A1394A55500943402 /* NSArrayHBCollectionsConvenienceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayHBCollectionsConvenienceTest.m; sourceTree = "<group>"; };
 		7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetHBCollectionsConvenienceTest.m; sourceTree = "<group>"; };
 		7B78DB791394AD6400943402 /* NSEnumeratorHBCollectionsEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsEnumeratorTest.m; sourceTree = "<group>"; };
-		7B79617013614A0E003DFC43 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnit.framework; sourceTree = "<group>"; };
-		7B79617113614A0F003DFC43 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		7B7961A113614A46003DFC43 /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7961A313614A46003DFC43 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		7B7961AC13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsMapEnumeratorTest.m; sourceTree = "<group>"; };
-		7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
 		7B7B887613652FA70005D773 /* NSEnumerator+HBCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEnumerator+HBCollections.h"; sourceTree = "<group>"; };
 		7B7B887713652FA70005D773 /* NSEnumerator+HBCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEnumerator+HBCollections.m"; sourceTree = "<group>"; };
 		7B8F65701378E24900A159FB /* NSEnumeratorHBCollectionsBreakEnumeratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsBreakEnumeratorTest.m; sourceTree = "<group>"; };
 		7B8F65971378E9FF00A159FB /* HBCollectionsPerformanceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsPerformanceTest.m; sourceTree = "<group>"; };
 		7B8F65C41378F7F400A159FB /* NSEnumeratorHBCollectionsCallCountIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsCallCountIntegrationTest.m; sourceTree = "<group>"; };
 		7B9ABE3A1395E5C800C98CA2 /* NSEnumeratorHBCollectionsReduceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEnumeratorHBCollectionsReduceTest.m; sourceTree = "<group>"; };
+		7BC3DE6A15F71157005A0227 /* GHUnitMacOSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GHUnitMacOSX.xcodeproj; path = "gh-unit/Project-MacOSX/GHUnitMacOSX.xcodeproj"; sourceTree = "<group>"; };
+		7BC3DE7B15F711A4005A0227 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitTestMain.m; path = "Classes-MacOSX/GHUnitTestMain.m"; sourceTree = "<group>"; };
+		7BC3DE7D15F7123F005A0227 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		7BC751001372574300FF83E6 /* HBCollectionsTestCaseEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsTestCaseEnumerator.h; sourceTree = "<group>"; };
 		7BC751011372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCollectionsTestCaseEnumerator.m; sourceTree = "<group>"; };
 		7BC751031372581700FF83E6 /* HBCollectionsStackBufEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCollectionsStackBufEnumerator.h; sourceTree = "<group>"; };
@@ -88,9 +112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BC3DE7915F71167005A0227 /* GHUnit.framework in Frameworks */,
 				7B06E8EB13975D00000D2070 /* Foundation.framework in Frameworks */,
-				7B06E8F513975D22000D2070 /* GHUnit.framework in Frameworks */,
-				7B06E8F613975D22000D2070 /* OCMock.framework in Frameworks */,
+				7BC3DE7E15F7123F005A0227 /* OCMock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +124,8 @@
 		08FB7794FE84155DC02AAC07 /* «PROJECTNAME» */ = {
 			isa = PBXGroup;
 			children = (
+				7BC3DE7A15F71185005A0227 /* gh-unit */,
+				7BC3DE6A15F71157005A0227 /* GHUnitMacOSX.xcodeproj */,
 				7B3B4030139C0E0C00586070 /* Examples */,
 				08FB779DFE84155DC02AAC07 /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
@@ -157,11 +183,27 @@
 			path = Examples;
 			sourceTree = "<group>";
 		};
+		7BC3DE6B15F71157005A0227 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BC3DE7415F71158005A0227 /* GHUnit.framework */,
+				7BC3DE7615F71158005A0227 /* Tests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BC3DE7A15F71185005A0227 /* gh-unit */ = {
+			isa = PBXGroup;
+			children = (
+				7BC3DE7B15F711A4005A0227 /* GHUnitTestMain.m */,
+			);
+			path = "gh-unit";
+			sourceTree = "<group>";
+		};
 		7BC7517813725C5200FF83E6 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				7B79617013614A0E003DFC43 /* GHUnit.framework */,
-				7B7961AD13614A93003DFC43 /* GHUnitTestMain.m */,
+				7BC3DE7D15F7123F005A0227 /* OCMock.framework */,
 				7BC75106137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.h */,
 				7BC75107137258C400FF83E6 /* HBCollectionsItemsPtrEnumerator.m */,
 				7B8F65971378E9FF00A159FB /* HBCollectionsPerformanceTest.m */,
@@ -180,7 +222,6 @@
 				7B9ABE3A1395E5C800C98CA2 /* NSEnumeratorHBCollectionsReduceTest.m */,
 				7BC8E6FE13935C9700FE0FA2 /* NSEnumeratorHBCollectionsValuePassingIntegrationTest.m */,
 				7B78DB4B1394A55500943402 /* NSSetHBCollectionsConvenienceTest.m */,
-				7B79617113614A0F003DFC43 /* OCMock.framework */,
 				7B7961A313614A46003DFC43 /* UnitTests-Info.plist */,
 			);
 			path = Test;
@@ -199,6 +240,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7BC3DE7815F71161005A0227 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
 			productName = UnitTests;
@@ -225,6 +267,12 @@
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* «PROJECTNAME» */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7BC3DE6B15F71157005A0227 /* Products */;
+					ProjectRef = 7BC3DE6A15F71157005A0227 /* GHUnitMacOSX.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7B7961A013614A46003DFC43 /* UnitTests */,
@@ -232,13 +280,29 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		7BC3DE7415F71158005A0227 /* GHUnit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GHUnit.framework;
+			remoteRef = 7BC3DE7315F71158005A0227 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC3DE7615F71158005A0227 /* Tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Tests.app;
+			remoteRef = 7BC3DE7515F71158005A0227 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7B79619E13614A46003DFC43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7B7961AF13614A93003DFC43 /* NSEnumeratorHBCollectionsMapEnumeratorTest.m in Sources */,
-				7B7961B013614A93003DFC43 /* GHUnitTestMain.m in Sources */,
 				7B7B887813652FA70005D773 /* NSEnumerator+HBCollections.m in Sources */,
 				7BC751021372574300FF83E6 /* HBCollectionsTestCaseEnumerator.m in Sources */,
 				7BC751051372581700FF83E6 /* HBCollectionsStackBufEnumerator.m in Sources */,
@@ -263,16 +327,26 @@
 				7B3B4063139C89E600586070 /* HBConvenience.m in Sources */,
 				7B3B4068139C90FD00586070 /* HBInteresting.m in Sources */,
 				7B57402013A48A1900544D47 /* HBBreakFilterMapSimple.m in Sources */,
+				7BC3DE7C15F711A4005A0227 /* GHUnitTestMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7BC3DE7815F71161005A0227 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GHUnit;
+			targetProxy = 7BC3DE7715F71161005A0227 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB927908733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_GC = unsupported;
@@ -281,6 +355,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				ONLY_ACTIVE_ARCH = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -289,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_GC = unsupported;
@@ -296,6 +372,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)\"";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;

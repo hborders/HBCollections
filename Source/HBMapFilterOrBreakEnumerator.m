@@ -8,27 +8,27 @@
  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
  Neither the name of the Heath Borders nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
  */
 
 #import "HBMapFilterOrBreakEnumerator.h"
 
-void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr, 
+void HBMapFilterOrBreak(__unsafe_unretained id *mapFilterOrBreakBlocksPtr,
 						NSUInteger mapFilterOrBreakBlocksCount,
 						id obj,
 						id *mappedObjectPtr,
-						BOOL *shouldFilterPtr, 
+						BOOL *shouldFilterPtr,
 						BOOL *shouldBreakPtr);
 
 @interface HBMapFilterOrBreakEnumerator() {
-    @private
+@private
     NSEnumerator *_mapFilterOrBreakeeEnumerator;
     NSArray *_mapFilterOrBreakBlocks;
-    id *_mapFilterOrBreakBlocksPtr;
+    __unsafe_unretained id *_mapFilterOrBreakBlocksPtr;
     NSUInteger _mapFilterOrBreakBlocksCount;
-
-    id *_mapFilterOrBreakeeItemsPtr;
+    
+    __unsafe_unretained id *_mapFilterOrBreakeeItemsPtr;
     NSUInteger _mapFilterOrBreakeeItemsIndex;
     NSUInteger _mapFilterOrBreakeeItemsCount;
     BOOL _mapFilterOrBreakItemsBroken;
@@ -57,13 +57,13 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 					  andAllObjectsSizeHint: (NSUInteger) allObjectsSizeHint {
 	self = [super init];
 	if (self) {
-		_mapFilterOrBreakeeEnumerator = [mapFilterOrBreakeeEnumerator retain];
-		_mapFilterOrBreakBlocks = [mapFilterOrBreakBlocks retain];
+		_mapFilterOrBreakeeEnumerator = mapFilterOrBreakeeEnumerator;
+		_mapFilterOrBreakBlocks = mapFilterOrBreakBlocks;
 		_hb_allObjectsSizeHint = allObjectsSizeHint;
 		
 		_mapFilterOrBreakBlocksCount = [_mapFilterOrBreakBlocks count];
-		_mapFilterOrBreakBlocksPtr = malloc(sizeof(id) * _mapFilterOrBreakBlocksCount);
-		[_mapFilterOrBreakBlocks getObjects:_mapFilterOrBreakBlocksPtr 
+		_mapFilterOrBreakBlocksPtr = (__unsafe_unretained id *) malloc(sizeof(id) * _mapFilterOrBreakBlocksCount);
+		[_mapFilterOrBreakBlocks getObjects:_mapFilterOrBreakBlocksPtr
 									  range:NSMakeRange(0, _mapFilterOrBreakBlocksCount)];
 	}
 	
@@ -71,11 +71,7 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 }
 
 - (void) dealloc {
-	[_mapFilterOrBreakeeEnumerator release];
-	[_mapFilterOrBreakBlocks release];
 	free(_mapFilterOrBreakBlocksPtr);
-	
-	[super dealloc];
 }
 
 #pragma mark -
@@ -83,13 +79,12 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 
 - (HBMapFilterOrBreakEnumerator *) hb_addMapFilterOrBreakBlock: (HBMapFilterOrBreakBlock) mapFilterOrBreakBlock {
 	NSArray *newMapFilterOrBreakBlocks = [_mapFilterOrBreakBlocks arrayByAddingObject:mapFilterOrBreakBlock];
-	return [[[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:_mapFilterOrBreakeeEnumerator
-															 andMapFilterOrBreakBlocks:newMapFilterOrBreakBlocks
-																 andAllObjectsSizeHint:_hb_allObjectsSizeHint] autorelease];
+	return [[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:_mapFilterOrBreakeeEnumerator
+                                                            andMapFilterOrBreakBlocks:newMapFilterOrBreakBlocks
+                                                                andAllObjectsSizeHint:_hb_allObjectsSizeHint];
 }
 
-#pragma mark -
-#pragma mark NSEnumerator
+#pragma mark - NSEnumerator
 
 - (NSArray *) allObjects {
 	NSMutableArray *mappedObjects = [NSMutableArray arrayWithCapacity:_hb_allObjectsSizeHint];
@@ -133,8 +128,8 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 	return nil;
 }
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
-								  objects:(id *)stackbuf
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+								  objects:(id __unsafe_unretained [])stackbuf
 									count:(NSUInteger)len {
 	if (_mapFilterOrBreakItemsBroken) {
 		return 0;
@@ -142,7 +137,7 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 		NSUInteger count = 0;
 		NSUInteger filteredItemsCount = 0;
 		do {
-			if (_mapFilterOrBreakeeItemsPtr && 
+			if (_mapFilterOrBreakeeItemsPtr &&
 				(_mapFilterOrBreakeeItemsIndex < _mapFilterOrBreakeeItemsCount)) {
 				count = MIN(len, _mapFilterOrBreakeeItemsCount - _mapFilterOrBreakeeItemsIndex);
 				state->itemsPtr = stackbuf;
@@ -249,7 +244,7 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 					}
 				}
 			}
-		} while ((filteredItemsCount == 0) && 
+		} while ((filteredItemsCount == 0) &&
 				 (count != 0) &&
 				 !_mapFilterOrBreakItemsBroken);
 		
@@ -259,16 +254,16 @@ void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr,
 
 @end
 
-void HBMapFilterOrBreak(id *mapFilterOrBreakBlocksPtr, 
+void HBMapFilterOrBreak(__unsafe_unretained id *mapFilterOrBreakBlocksPtr,
 						NSUInteger mapFilterOrBreakBlocksCount,
 						id obj,
 						id *mappedObjectPtr,
-						BOOL *shouldFilterPtr, 
+						BOOL *shouldFilterPtr,
 						BOOL *shouldBreakPtr) {
 	id mappedObj = obj;
 	id nextMappedObj;
-	BOOL shouldFilter;
-	BOOL shouldBreak;
+	BOOL shouldFilter = YES;
+	BOOL shouldBreak = NO;
 	
 	for (NSUInteger i = 0; i < mapFilterOrBreakBlocksCount; i++) {
 		HBMapFilterOrBreakBlock mapFilterOrBreakBlock = mapFilterOrBreakBlocksPtr[i];

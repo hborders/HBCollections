@@ -2,6 +2,12 @@ HBCollections
 =============
 Objective-C categories for functional data structure traversal with blocks.  The interface was inspired by [Javascript Array Iteration Methods][javascript-array-iteration-methods].  The implementation was inspired by [Mike Ash's][mikeash] [Implementating Fast Enumeration Friday Q&A][implementing-fast-enumeration-qa].
 
+Submodules
+----------
+This project uses git submodules
+Run immediately after cloning:
+    git submodule update --init
+
 Why
 ---
 Your loop bodies and if predicates become reusable blocks, fine-grained code reuse points with which you can assemble larger systems.

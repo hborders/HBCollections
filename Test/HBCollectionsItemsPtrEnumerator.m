@@ -15,51 +15,42 @@
 #import "HBCollectionsItemsPtrEnumerator.h"
 #import <GHUnit/GHUnit.h>
 
-@interface HBCollectionsItemsPtrEnumerator()
+@interface HBCollectionsItemsPtrEnumerator() {
+    @private
+    __unsafe_unretained id *_elementsItemsPtr;
+}
 
 @property (nonatomic) NSFastEnumerationState lastFastEnumerationState;
-@property (nonatomic, retain) NSArray *elements;
-@property (nonatomic) id *elementsItemsPtr;
+@property (nonatomic, strong) NSArray *elements;
 
 @end
 
 @implementation HBCollectionsItemsPtrEnumerator
 
-@synthesize elementsFactoryBlock = _elementsFactoryBlock;
-
-@synthesize lastFastEnumerationState = _lastFastEnumerationState;
-@synthesize elements = _elements;
-@synthesize elementsItemsPtr = _elementsItemsPtr;
-
 - (void) dealloc {
-	self.elementsFactoryBlock = nil;
-	self.elements = nil;
-	if (self.elementsItemsPtr) {
-		free(self.elementsItemsPtr);
-		self.elementsItemsPtr = NULL;
+	if (_elementsItemsPtr) {
+		free(_elementsItemsPtr);
+		_elementsItemsPtr = NULL;
 	}
-	
-	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark NSFastEnumeration
+#pragma mark - NSFastEnumeration
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
-								  objects:(id *)stackbuf
+								  objects:(id __unsafe_unretained [])stackbuf
 									count:(NSUInteger)len {
 	static unsigned long mutationsPtr = 0;
 	switch (state->state) {
 		case 0: {
 			self.elements = self.elementsFactoryBlock(len);
-			self.elementsItemsPtr = (id *) malloc(sizeof(id) * [self.elements count]);
+			_elementsItemsPtr = (__unsafe_unretained id *) malloc(sizeof(id) * [self.elements count]);
 			[self.elements enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-				self.elementsItemsPtr[idx] = obj;
+				_elementsItemsPtr[idx] = obj;
 			}];
 			
 			NSFastEnumerationState lastFastEnumerationState = { 0 };
 			state->state = lastFastEnumerationState.state = 1;
-			state->itemsPtr = lastFastEnumerationState.itemsPtr = self.elementsItemsPtr;
+			state->itemsPtr = lastFastEnumerationState.itemsPtr = _elementsItemsPtr;
 			state->mutationsPtr = lastFastEnumerationState.mutationsPtr = &mutationsPtr;
 			state->extra[0] = lastFastEnumerationState.extra[0] = 10;
 			state->extra[1] = lastFastEnumerationState.extra[1] = 11;

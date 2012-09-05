@@ -34,7 +34,7 @@
 				  @"3",
 				  nil];
 	
-	mapBlock = [[^(id obj) {
+	mapBlock = [^(id obj) {
 		if ([@"1" isEqual:obj]) {
 			return (id) @"one";					
 		} else if ([@"2" isEqual:obj]) {
@@ -44,7 +44,13 @@
 		} else {
 			return (id) @"error";
 		}
-	} copy] autorelease];
+	} copy];
+}
+
+- (void) tearDown {
+    mapBlock = nil;
+    
+    [super tearDown];
 }
 
 - (void) testAllObjectsAsDictionaryByMappingKeysToValuesWithBlock {

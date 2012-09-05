@@ -17,13 +17,11 @@
 
 @interface HBCollectionsTestCaseEnumerator()
 
-@property (nonatomic, retain) GHTestCase *testCase;
+@property (nonatomic, strong) GHTestCase *testCase;
 
 @end
 
 @implementation HBCollectionsTestCaseEnumerator
-
-@synthesize testCase = _testCase;
 
 - (id) init {
 	return [self initWithTestCase:nil];
@@ -35,12 +33,6 @@
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	self.testCase = nil;
-	
-	[super dealloc];
 }
 
 - (void)failWithException:(NSException*)exception {

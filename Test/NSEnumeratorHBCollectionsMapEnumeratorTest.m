@@ -102,7 +102,7 @@
 
 - (void) test_FastEnumeration_Overwrites_StackBuf_When_StackBuf_Is_ItemsPtr_Leaves_NSFastEnumerationState_Alone {
 	HBCollectionsStackBufEnumerator *stackBufferEnumerator = 
-		[[[HBCollectionsStackBufEnumerator alloc] initWithTestCase:self] autorelease];
+    [[HBCollectionsStackBufEnumerator alloc] initWithTestCase:self];
 	stackBufferEnumerator.elements = testData;
 	
 	NSEnumerator *testObject = [stackBufferEnumerator hb_mapEnumeratorUsingBlock:testMapBlock];
@@ -117,7 +117,7 @@
 
 - (void) test_FastEnumeration_Uses_StackBuf_When_ItemsPtr_Isnt_StackBuf_But_Replaces_ItemsPtr_On_NSFastEnumerationState_For_Wrapped_Enumerator_And_Only_Delegates_Once_When_ItemsPtr_Count_Is_Less_Than_StackBuf_Len {
 	HBCollectionsItemsPtrEnumerator *itemsPtrEnumerator =
-		[[[HBCollectionsItemsPtrEnumerator alloc] initWithTestCase:self] autorelease];
+    [[HBCollectionsItemsPtrEnumerator alloc] initWithTestCase:self];
 	itemsPtrEnumerator.elementsFactoryBlock = ^(NSUInteger stackBufLen) {
 		GHAssertGreaterThan(stackBufLen, (NSUInteger) 3, @"stackBuf len too small: %d", stackBufLen);
 		
@@ -137,7 +137,7 @@
 - (void) test_FastEnumeration_Uses_StackBuf_When_ItemsPtr_Isnt_StackBuf_But_Replaces_ItemsPtr_On_NSFastEnumerationState_For_Wrapped_Enumerator_And_Only_Delegates_Once_When_ItemsPtr_Count_Is_Greater_Than_StackBuf_Len {
 	const NSUInteger minimumStackBufLen = [testData count];
 	HBCollectionsItemsPtrEnumerator *itemsPtrEnumerator =
-		[[[HBCollectionsItemsPtrEnumerator alloc] initWithTestCase:self] autorelease];
+    [[HBCollectionsItemsPtrEnumerator alloc] initWithTestCase:self];
 	__block NSUInteger generatedElementLen = 0;
 	itemsPtrEnumerator.elementsFactoryBlock = ^(NSUInteger stackBufLen) {
 		GHAssertGreaterThan(stackBufLen, (NSUInteger) 3, @"stackBuf len too small: %d", stackBufLen);

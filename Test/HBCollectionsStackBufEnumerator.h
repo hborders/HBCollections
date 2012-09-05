@@ -19,6 +19,6 @@
 	
 }
 
-@property (nonatomic, retain) NSArray *elements;
+@property (nonatomic, strong) NSArray *elements;
 
 @end

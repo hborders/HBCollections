@@ -23,21 +23,10 @@
 
 @implementation HBCollectionsStackBufEnumerator
 
-@synthesize elements = _elements;
-
-@synthesize lastFastEnumerationState = _lastFastEnumerationState;
-
-- (void) dealloc {
-	self.elements = nil;
-	
-	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark NSFastEnumeration
+#pragma mark - NSFastEnumeration
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state 
-								  objects:(id *)stackbuf
+								  objects:(id __unsafe_unretained [])stackbuf
 									count:(NSUInteger)len {
 	static unsigned long mutationsPtr = 0;
 	switch (state->state) {

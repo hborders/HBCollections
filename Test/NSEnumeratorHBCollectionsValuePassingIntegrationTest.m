@@ -8,7 +8,7 @@
  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
  Neither the name of the Heath Borders nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
  */
 
@@ -37,7 +37,7 @@
 	id lastEnumerateBlock2Obj;
 	id lastMapBlock2Obj;
 	id lastFilterBlock2Obj;
-	id lastBreakBlock2Obj;	
+	id lastBreakBlock2Obj;
 }
 
 @end
@@ -49,48 +49,48 @@
 	
 	originalValue = @"1";
 	
-	testEnumerator = [[[HBCollectionsStackBufEnumerator alloc] init] autorelease];
+	testEnumerator = [[HBCollectionsStackBufEnumerator alloc] init];
 	testEnumerator.elements = [NSArray arrayWithObjects:
 							   originalValue,
 							   nil];
 	
 	mappedValue = @"one";
 	
-	enumerateBlock1 = [[^(id obj) {
-	} copy] autorelease];
-	mapBlock1 = [[^(id obj) {
+	enumerateBlock1 = [^(id obj) {
+	} copy];
+	mapBlock1 = [^(id obj) {
 		if (obj == originalValue) {
 			return mappedValue;
 		} else {
 			return (id) @"error1";
 		}
-	} copy] autorelease];
-	filterBlock1 = [[^(id obj) {
+	} copy];
+	filterBlock1 = [^(id obj) {
 		return YES;
-	} copy] autorelease];
-	breakBlock1 = [[^(id obj) {
+	} copy];
+	breakBlock1 = [^(id obj) {
 		return NO;
-	} copy] autorelease];
+	} copy];
 	
-	enumerateBlock2 = [[^(id obj) {
+	enumerateBlock2 = [^(id obj) {
 		lastEnumerateBlock2Obj = obj;
-	} copy] autorelease];
-	mapBlock2 = [[^(id obj) {
+	} copy];
+	mapBlock2 = [^(id obj) {
 		lastMapBlock2Obj = obj;
 		if (obj == mappedValue) {
 			return mappedValue;
 		} else {
 			return (id) @"error2";
 		}
-	} copy] autorelease];
-	filterBlock2 = [[^(id obj) {
+	} copy];
+	filterBlock2 = [^(id obj) {
 		lastFilterBlock2Obj = obj;
 		return YES;
-	} copy] autorelease];
-	breakBlock2 = [[^(id obj) {
+	} copy];
+	breakBlock2 = [^(id obj) {
 		lastBreakBlock2Obj = obj;
 		return NO;
-	} copy] autorelease];
+	} copy];
 	
 	lastMapBlock2Obj = nil;
 	lastFilterBlock2Obj = nil;

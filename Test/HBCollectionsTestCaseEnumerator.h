@@ -16,9 +16,7 @@
 
 @class GHTestCase;
 
-@interface HBCollectionsTestCaseEnumerator : NSEnumerator {
-	
-}
+@interface HBCollectionsTestCaseEnumerator : NSEnumerator
 
 - (id) initWithTestCase: (GHTestCase *) testCase;
 

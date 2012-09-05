@@ -55,7 +55,7 @@
 @end
 
 NSNumber *factorial(NSUInteger n) {
-	NSEnumerator *numberEnumerator = [[[HBExampleUIntegerEnumerator alloc] initWithStart:1] autorelease];
+	NSEnumerator *numberEnumerator = [[HBExampleUIntegerEnumerator alloc] initWithStart:1];
 	return [[numberEnumerator hb_breakEnumeratorUsingBlock:^(id obj) {
 		NSNumber *number = obj;
 		return (BOOL) ([number unsignedIntegerValue] <= n);
@@ -72,7 +72,7 @@ NSNumber *fibonacci(NSUInteger n) {
 		return [NSNumber numberWithInt:0];
 	}
 	
-	NSEnumerator *numberEnumerator = [[[HBExampleUIntegerEnumerator alloc] initWithStart:1] autorelease];
+	NSEnumerator *numberEnumerator = [[HBExampleUIntegerEnumerator alloc] initWithStart:1];
 	return [[[numberEnumerator hb_breakEnumeratorUsingBlock:^(id obj) {
 		NSNumber *number = obj;
 		return (BOOL) ([number unsignedIntegerValue] <= n);

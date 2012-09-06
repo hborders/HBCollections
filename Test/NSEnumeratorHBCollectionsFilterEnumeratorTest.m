@@ -47,15 +47,15 @@
 		return NO;
 	};
 	
-	testData = [NSArray arrayWithObjects:
-				@"0",
-				@"1",
-				@"2",
-				nil];
-	expectedFilteredData = [NSArray arrayWithObjects:
-							@"0",
-							@"2",
-							nil];
+	testData = @[
+    @"0",
+    @"1",
+    @"2",
+    ];
+	expectedFilteredData = @[
+    @"0",
+    @"2",
+    ];
 }
 
 - (void) test_AllObjects_Are_Enumerated_In_Order_Filtered_By_Block {

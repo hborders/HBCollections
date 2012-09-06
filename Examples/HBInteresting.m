@@ -86,7 +86,7 @@ NSNumber *fibonacci(NSUInteger n) {
 		return (id) lastTwoFibs;
 	}
 			 andInitialValue:[NSMutableArray arrayWithObjects:
-							  [NSNumber numberWithUnsignedInteger:0],
-							  [NSNumber numberWithUnsignedInteger:1],
+							  @0,
+							  @1,
 							  nil]] lastObject];
 }

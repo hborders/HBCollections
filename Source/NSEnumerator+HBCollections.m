@@ -34,9 +34,9 @@
 		return [selfMapFilterOrBreakEnumerator hb_addMapFilterOrBreakBlock:plainMapFilterOrBreakBlock];
 	} else {
 		return [[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:self
-                                                                andMapFilterOrBreakBlocks:[NSArray arrayWithObjects:
-                                                                                           plainMapFilterOrBreakBlock,
-                                                                                           nil]];
+                                                                andMapFilterOrBreakBlocks:@[
+                plainMapFilterOrBreakBlock,
+                ]];
 	}
 }
 
@@ -56,9 +56,9 @@
 		return [selfMapFilterOrBreakEnumerator hb_addMapFilterOrBreakBlock:mapMapFilterOrBreakBlock];
 	} else {
 		return [[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:self
-                                                                andMapFilterOrBreakBlocks:[NSArray arrayWithObjects:
-                                                                                           mapMapFilterOrBreakBlock,
-                                                                                           nil]];
+                                                                andMapFilterOrBreakBlocks:@[
+                mapMapFilterOrBreakBlock,
+                ]];
 	}
 }
 
@@ -78,9 +78,9 @@
 		return [selfMapFilterOrBreakEnumerator hb_addMapFilterOrBreakBlock:filterMapFilterOrBreakBlock];
 	} else {
 		return [[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:self
-                                                                andMapFilterOrBreakBlocks:[NSArray arrayWithObjects:
-                                                                                           filterMapFilterOrBreakBlock,
-                                                                                           nil]];
+                                                                andMapFilterOrBreakBlocks:@[
+                filterMapFilterOrBreakBlock,
+                ]];
 	}
 }
 
@@ -100,9 +100,9 @@
 		return [selfMapFilterOrBreakEnumerator hb_addMapFilterOrBreakBlock:breakMapFilterOrBreakBlock];
 	} else {
 		return [[HBMapFilterOrBreakEnumerator alloc] initWithMapFilterOrBreakeeEnumerator:self
-                                                                andMapFilterOrBreakBlocks:[NSArray arrayWithObjects:
-                                                                                           breakMapFilterOrBreakBlock,
-                                                                                           nil]];
+                                                                andMapFilterOrBreakBlocks:@[
+                breakMapFilterOrBreakBlock,
+                ]];
 	}
 }
 

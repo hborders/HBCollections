@@ -50,9 +50,9 @@
 	originalValue = @"1";
 	
 	testEnumerator = [[HBCollectionsStackBufEnumerator alloc] init];
-	testEnumerator.elements = [NSArray arrayWithObjects:
-							   originalValue,
-							   nil];
+	testEnumerator.elements = @[
+    originalValue,
+    ];
 	
 	mappedValue = @"one";
 	

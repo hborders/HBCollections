@@ -43,11 +43,11 @@
 		return (id) [previousString stringByAppendingString:string];
 	} copy];
 	
-	testData = [NSArray arrayWithObjects:
-				@"1",
-				@"2",
-				@"3",
-				nil];
+	testData = @[
+    @"1",
+    @"2",
+    @"3",
+    ];
 }
 
 - (void) test_Reduce_Enumerates_Enumerator_In_Order_With_InitialValue_As_First_PreviousObj {
@@ -58,14 +58,14 @@
 	
 	GHAssertEqualObjects(actual, @"0123", nil);
 	
-	NSArray *expectedGivenElements = [NSArray arrayWithObjects:
-									  @"0",
-									  @"1",
-									  @"01",
-									  @"2",
-									  @"012",
-									  @"3",
-									  nil];
+	NSArray *expectedGivenElements = @[
+    @"0",
+    @"1",
+    @"01",
+    @"2",
+    @"012",
+    @"3",
+    ];
 	GHAssertEqualObjects(givenElements, expectedGivenElements, nil);
 }
 
@@ -77,14 +77,14 @@
 	
 	GHAssertEqualObjects(actual, @"0123", nil);
 	
-	NSArray *expectedGivenElements = [NSArray arrayWithObjects:
-									  @"0",
-									  @"1",
-									  @"01",
-									  @"2",
-									  @"012",
-									  @"3",
-									  nil];
+	NSArray *expectedGivenElements = @[
+    @"0",
+    @"1",
+    @"01",
+    @"2",
+    @"012",
+    @"3",
+    ];
 	GHAssertEqualObjects(givenElements, expectedGivenElements, nil);
 }
 
@@ -96,14 +96,14 @@
 	
 	GHAssertEqualObjects(actual, @"0321", nil);
 	
-	NSArray *expectedGivenElements = [NSArray arrayWithObjects:
-									  @"0",
-									  @"3",
-									  @"03",
-									  @"2",
-									  @"032",
-									  @"1",
-									  nil];
+	NSArray *expectedGivenElements = @[
+    @"0",
+    @"3",
+    @"03",
+    @"2",
+    @"032",
+    @"1",
+    ];
 	GHAssertEqualObjects(givenElements, expectedGivenElements, nil);
 }
 

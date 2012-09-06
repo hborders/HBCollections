@@ -37,11 +37,11 @@
 		[givenElements addObject:obj];
 	} copy];
 	
-	testData = [NSArray arrayWithObjects:
-				@"0",
-				@"1",
-				@"2",
-				nil];
+	testData = @[
+    @"0",
+    @"1",
+    @"2",
+    ];
 }
 
 - (void) test_AllObjects_Are_Enumerated_In_Order {

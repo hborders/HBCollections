@@ -47,38 +47,38 @@
 }
 
 - (void) testAllObjectsAsDictionaryByMappingKeysToValuesWithBlock {
-	NSDictionary *expected = [NSDictionary dictionaryWithObjectsAndKeys:
-							  @"one", @"1",
-							  @"two", @"2",
-							  @"three", @"3",
-							  nil];
+    NSDictionary *expected = @{
+    @"1" : @"one",
+    @"2" : @"two",
+    @"3" : @"three",
+    };
 	GHAssertEqualObjects([testObject hb_allObjectsAsDictionaryByMappingKeysToValuesWithBlock:mapBlock], expected, nil);
 }
 
 - (void) testAllObjectsAsMutableDictionaryByMappingKeysToValuesWithBlock {
-	NSMutableDictionary *expected = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									 @"one", @"1",
-									 @"two", @"2",
-									 @"three", @"3",
-									 nil];
+	NSMutableDictionary *expected = [@{
+                                     @"1" : @"one",
+                                     @"2" : @"two",
+                                     @"3" : @"three",
+                                     } mutableCopy];
 	GHAssertEqualObjects([testObject hb_allObjectsAsMutableDictionaryByMappingKeysToValuesWithBlock:mapBlock], expected, nil);
 }
 
 - (void) testAllObjectsAsDictionaryByMappingValuesToKeysWithBlock {
-	NSDictionary *expected = [NSDictionary dictionaryWithObjectsAndKeys:
-							  @"1", @"one",
-							  @"2", @"two",
-							  @"3", @"three",
-							  nil];
+    NSDictionary *expected = @{
+    @"one" : @"1",
+    @"two" : @"2",
+    @"three" : @"3",
+    };
 	GHAssertEqualObjects([testObject hb_allObjectsAsDictionaryByMappingValuesToKeysWithBlock:mapBlock], expected, nil);
 }
 
 - (void) testAllObjectsAsMutableDictionaryByMappingValuesToKeysWithBlock {
-	NSMutableDictionary *expected = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									 @"1", @"one",
-									 @"2", @"two",
-									 @"3", @"three",
-									 nil];
+	NSMutableDictionary *expected = [@{
+                                     @"one" : @"1",
+                                     @"two" : @"2",
+                                     @"three" : @"3",
+                                     } mutableCopy];
 	GHAssertEqualObjects([testObject hb_allObjectsAsMutableDictionaryByMappingValuesToKeysWithBlock:mapBlock], expected, nil);
 }
 

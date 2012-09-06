@@ -18,12 +18,11 @@ void reduceWithForLoop() {
 	/*
 	 * We must specify the for loop for each pass through the array.
 	 */
-	
-	NSArray *array = [NSArray arrayWithObjects:
-					  [NSNumber numberWithInt:0],
-					  [NSNumber numberWithInt:1], 
-					  [NSNumber numberWithInt:2],
-					  nil];
+	NSArray *array = @[
+    @0,
+    @1,
+    @2,
+    ];
 
 	NSInteger total = 0;
 	for (NSNumber *number in array) {
@@ -43,11 +42,11 @@ void reduceWithFoundation() {
 	 * We don't have to specify the for loop, but we still have mutable state.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:
-					  [NSNumber numberWithInt:0],
-					  [NSNumber numberWithInt:1], 
-					  [NSNumber numberWithInt:2],
-					  nil];
+    NSArray *array = @[
+    @0,
+    @1,
+    @2,
+    ];
 	
 	__block NSInteger total = 0;
 	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -72,18 +71,18 @@ void reduceWithHBCollections() {
 	 * removes mutable state.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:
-					  [NSNumber numberWithInt:0],
-					  [NSNumber numberWithInt:1], 
-					  [NSNumber numberWithInt:2],
-					  nil];
+    NSArray *array = @[
+    @0,
+    @1,
+    @2,
+    ];
 	
 	NSNumber *total = [array hb_reduceUsingBlock:^(id previousObj, id obj) {
 		NSNumber *previousNumber = previousObj;
 		NSNumber *number = obj;
 		return (id) [NSNumber numberWithInteger:[previousNumber integerValue] + [number integerValue]];
 	}
-								 andInitialValue:[NSNumber numberWithInt:0]];
+								 andInitialValue:@0];
 	NSLog(@"My total: %@", total);
 	
 	NSNumber *minimum = [array hb_reduceUsingBlock:^(id previousObj, id obj) {

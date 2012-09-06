@@ -16,8 +16,7 @@
 #import "NSEnumerator+HBCollections.h"
 #import "NSArray+HBCollections.h"
 
-#define HBCollectionsPerformanceTestCloseFactor 1.6
-#define HBCollectionsPerformanceTestNotTerribleFactor 5
+#define HBCollectionsPerformanceTestNotTerribleFactor 10
 
 @interface HBCollectionsPerformanceTest : GHTestCase {
 	NSUInteger large;
@@ -47,7 +46,7 @@
 	[super tearDown];
 }
 
-- (void) test_Large_Array_Enumerate_Performance_Is_Close_To_For_Loop {
+- (void) test_Large_Array_Enumerate_Performance_Is_Not_Terrible_Compared_To_For_Loop {
     NSTimeInterval forLoopTimeInterval;
     @autoreleasepool {
         NSDate *forLoopStartDate = [NSDate date];
@@ -68,10 +67,10 @@
         hbCollectionsTimeInterval = -[hbCollectionsStartDate timeIntervalSinceNow];
     }
 	
-	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
+	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
 }
 
-- (void) test_Large_Array_Map_Performance_Is_Close_To_For_Loop {
+- (void) test_Large_Array_Map_Performance_Is_Not_Terrible_Compared_To_For_Loop {
     NSTimeInterval forLoopTimeInterval;
     @autoreleasepool {
         NSDate *forLoopStartDate = [NSDate date];
@@ -93,10 +92,10 @@
         [hbCollectionsed count]; // make unused warning go away
     }
 	
-	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
+	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
 }
 
-- (void) test_Large_Array_Filter_Performance_Is_Close_To_For_Loop {
+- (void) test_Large_Array_Filter_Performance_Is_Not_Terrible_Compared_To_For_Loop {
 	NSNumber *filterNumber = [NSNumber numberWithInt:42];
 	
     NSTimeInterval forLoopTimeInterval;
@@ -121,10 +120,10 @@
         [hbCollectionsed count]; // make unused warning go away
     }
 	
-	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
+	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
 }
 
-- (void) test_Large_Array_Late_Break_Performance_Is_Close_To_For_Loop {
+- (void) test_Large_Array_Late_Break_Performance_Is_Not_Terrible_Compared_To_For_Loop {
 	NSUInteger lateBreakIndex = [largeArray count] - 1;
 	
     NSTimeInterval forLoopTimeInterval;
@@ -152,7 +151,7 @@
         [hbCollectionsed count]; // make unused warning go away
     }
 	
-	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
+	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
 }
 
 - (void) test_Large_Array_Early_Break_Performance_Is_Not_Terrible_Compared_To_For_Loop {
@@ -186,7 +185,7 @@
 	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
 }
 
-- (void) test_Large_Array_Nested_Map_And_Filter_Performance_Is_Close_To_For_Loop {
+- (void) test_Large_Array_Nested_Map_And_Filter_Performance_Is_Not_Terrible_Compared_To_For_Loop {
 	NSNumber *filterNumber = [NSNumber numberWithInt:42];
 	
     NSTimeInterval forLoopTimeInterval;
@@ -217,7 +216,7 @@
         [hbCollectionsed count]; // make unused warning go away
     }
 	
-	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestCloseFactor, nil);
+	GHAssertLessThan(hbCollectionsTimeInterval, forLoopTimeInterval * HBCollectionsPerformanceTestNotTerribleFactor, nil);
 }
 
 @end

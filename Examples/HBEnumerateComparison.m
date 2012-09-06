@@ -21,7 +21,11 @@ void enumerateWithForLoop() {
 	 * Even though the fors are nearly identical, they must be specified every time.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"1", @"2", nil];
+	NSArray *array = @[
+    @"0",
+    @"1",
+    @"2",
+    ];
 	for (NSString *string in array) {
 		NSLog(@"processing my string: %@", string);
 	}
@@ -38,7 +42,11 @@ void enumerateWithFoundation() {
 	 * the blocks can't be reused because they accept different parameters.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"1", @"2", nil];
+	NSArray *array = @[
+    @"0",
+    @"1",
+    @"2",
+    ];
 	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSString *string = obj;
 		NSLog(@"processing my string: %@", string);
@@ -62,7 +70,11 @@ void enuemrateWithHBCollections() {
 		NSLog(@"processing my string: %@", string); 
 	};
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"1", @"2", nil];
+	NSArray *array = @[
+    @"0",
+    @"1",
+    @"2",
+    ];
 	[[array hb_actionEnumeratorUsingBlock:processingMyStringBlock] hb_enumerate];
 	
 	NSSet *set = [NSSet setWithObjects:@"0", @"1", @"2", nil];

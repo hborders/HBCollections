@@ -24,19 +24,25 @@
 
 void breakFilterMapWithForLoop() {
 	NSCharacterSet *nonDecimalDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-								@"zero", @"0",
-								@"one", @"1",
-								@"two", @"2",
-								// etc
-								nil];
+    NSDictionary *dictionary = @{
+    @"0" : @"zero",
+    @"1" : @"one",
+    @"2" : @"two",
+    //etc
+    };
 	
 	/*
 	 * Three separate cases exist, each is difficult to test separately or inject as a dependency.
 	 * Also, mutable state exists.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"a", @"2", @"EOF", @"1", nil];
+    NSArray *array = @[
+    @"0",
+    @"a",
+    @"2",
+    @"EOF",
+    @"1",
+    ];
 	NSMutableArray *arrayInEnglish = [NSMutableArray array];
 	for (NSString *string in array) {
 		if ([string isEqualToString:@"EOF"]) {
@@ -49,12 +55,12 @@ void breakFilterMapWithForLoop() {
 
 void breakFilterMapWithFoundation() {
 	NSCharacterSet *nonDecimalDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-								@"zero", @"0",
-								@"one", @"1",
-								@"two", @"2",
-								// etc
-								nil];
+	NSDictionary *dictionary = @{
+    @"0" : @"zero",
+    @"1" : @"one",
+    @"2" : @"two",
+    //etc
+    };
 	
 	/*
 	 * Same issues as for loop:
@@ -62,7 +68,13 @@ void breakFilterMapWithFoundation() {
 	 * Also, mutable state exists.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"a", @"2", @"EOF", @"1", nil];
+	NSArray *array = @[
+    @"0",
+    @"a",
+    @"2",
+    @"EOF",
+    @"1",
+    ];
 	__block NSMutableArray *arrayInEnglish = [NSMutableArray array];
 	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		NSString *string = obj;
@@ -78,19 +90,25 @@ void breakFilterMapWithFoundation() {
 
 void breakFilterMapWithHBCollections() {
 	NSCharacterSet *nonDecimalDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-								@"zero", @"0",
-								@"one", @"1",
-								@"two", @"2",
-								// etc
-								nil];
+	NSDictionary *dictionary = @{
+    @"0" : @"zero",
+    @"1" : @"one",
+    @"2" : @"two",
+    //etc
+    };
 	
 	/*
 	 * Now, the individual rules have been broken into 3 separate block.
 	 * Each block is easy to test and to inject into this function as a dependency.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"a", @"2", @"EOF", @"1", nil];
+	NSArray *array = @[
+    @"0",
+    @"a",
+    @"2",
+    @"EOF",
+    @"1",
+    ];
 	NSArray *arrayInEnglish = [[[[array hb_breakEnumeratorUsingBlock:^(id obj) {
 		NSString *string = obj;
 		return [string isEqualToString:@"EOF"];
@@ -107,19 +125,25 @@ void breakFilterMapWithHBCollections() {
 
 void breakFilterMapWithHBCollectionsAsEnumerator() {
 	NSCharacterSet *nonDecimalDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-								@"zero", @"0",
-								@"one", @"1",
-								@"two", @"2",
-								// etc
-								nil];
+	NSDictionary *dictionary = @{
+    @"0" : @"zero",
+    @"1" : @"one",
+    @"2" : @"two",
+    //etc
+    };
 	
 	/*
 	 * In case you need to interface with code that requires fast enumeration,
 	 * or you want open-ended lazy evaluation.
 	 */
 	
-	NSArray *array = [NSArray arrayWithObjects:@"0", @"a", @"2", @"EOF", @"1", nil];
+	NSArray *array = @[
+    @"0",
+    @"a",
+    @"2",
+    @"EOF",
+    @"1",
+    ];
 	NSEnumerator *enumeratorInEnglish = [[[array hb_breakEnumeratorUsingBlock:^(id obj) {
 		NSString *string = obj;
 		return [string isEqualToString:@"EOF"];
